@@ -24,11 +24,11 @@ jobs:
             cd /home/u904124108/domains/smkpgri2malang.sch.id
 
             # Clone repository if not exists
-            if [ ! -d "election-system" ]; then
+            if [ ! -d "smkpgri2" ]; then
               git clone https://github.com/ahmakbardev/smkpgri2.git
             fi
 
-            cd election-system
+            cd smkpgri2
             git stash
             git pull origin develop
 
