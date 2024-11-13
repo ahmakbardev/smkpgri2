@@ -1,0 +1,70 @@
+name: Deploy SMK PGRI 2 Malang to Hpanel
+
+on:
+  push:
+    branches: [develop]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    name: Deploy SMK PGRI 2 Malang to Public
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup SSH and Deploy
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USERNAME }}
+          key: ${{ secrets.SERVER_KEY }}
+          port: ${{ secrets.SERVER_PORT }}
+          script: |
+            cd /home/u904124108/domains/smkpgri2malang.sch.id
+
+            # Clone repository if not exists
+            if [ ! -d "smkpgri2" ]; then
+              git clone https://github.com/ahmakbardev/smkpgri2.git
+            fi
+
+            cd smkpgri2
+            git stash
+            git pull origin develop
+
+            # Setup Composer
+            chmod +x ~/bin/composer
+            echo "export PATH=$HOME/bin:$PATH" >> ~/.bash_profile
+            source ~/.bash_profile
+
+            # Setup Node.js
+            echo "export PATH=$HOME/bin/nodejs/bin:$PATH" >> ~/.bash_profile
+            source ~/.bash_profile
+
+            # Ensure Node.js and npm are available
+            which node
+            node -v
+            npm -v
+
+            # Install Node.js dependencies and build assets
+            npm install
+            npm install browser-sync browser-sync-webpack-plugin@^2.3.0 --save-dev --legacy-peer-deps
+            npm run dev
+
+            # Ensure Composer is available
+            which composer
+            composer --version
+
+            # Install PHP dependencies via Composer
+            composer install
+            composer update
+
+            # Run Laravel commands
+            php artisan key:generate
+            php artisan route:clear
+            php artisan config:cache
+            php artisan optimize
+            php artisan storage:link
+
+            # Link public directory to public_html
+            ln -sfn /home/u904124108/domains/smkpgri2malang.sch.id/smkpgri2/public/* /home/u904124108/domains/smkpgri2malang.sch.id/public_html
