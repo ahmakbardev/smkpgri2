@@ -60,6 +60,7 @@ jobs:
             composer update
 
             # Run Laravel commands
+            cp .env.example .env
             php artisan key:generate
             php artisan route:clear
             php artisan config:cache
