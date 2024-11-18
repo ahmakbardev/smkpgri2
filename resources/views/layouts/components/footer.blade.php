@@ -2,10 +2,10 @@
     <div class="container mx-auto px-4">
         <div class="flex justify-between">
             <div>
-                <h4 class="text-lg font-semibold">Brand</h4>
-                <p class="mt-2 ">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                <h4 class="text-lg font-semibold">SMK PGRI 2 Malang</h4>
+                <p class="mt-2 ">School of Business and Technology.</p>
             </div>
-            <div>
+            {{-- <div>
                 <h4 class="text-lg font-semibold">Links</h4>
                 <ul class="mt-2">
                     <li><a href="{{ url('/') }}" class=" hover:text-white">Home</a></li>
@@ -13,10 +13,10 @@
                     <li><a href="{{ url('/services') }}" class=" hover:text-white">Services</a></li>
                     <li><a href="{{ url('/contact') }}" class=" hover:text-white">Contact</a></li>
                 </ul>
-            </div>
+            </div> --}}
             <div>
                 <h4 class="text-lg font-semibold">Contact Us</h4>
-                <p class="mt-2 ">Email: info@example.com</p>
+                <p class="mt-2 ">Email: smkpgri2kotamalang@gmail.com</p>
                 <p class="">Phone: +123 456 7890</p>
             </div>
         </div>

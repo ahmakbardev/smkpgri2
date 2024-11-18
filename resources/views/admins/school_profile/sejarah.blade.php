@@ -53,7 +53,7 @@
                 'WebSocketGateway'
             ],
             ckfinder: {
-                uploadUrl: "{{ route('article.upload') }}?_token={{ csrf_token() }}",
+                uploadUrl: "{{ route('penulis.article.upload') }}?_token={{ csrf_token() }}",
                 headers: {
                     'X-CSRF-TOKEN': "{{ csrf_token() }}",
                     'Accept': 'application/json'

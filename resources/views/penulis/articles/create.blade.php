@@ -1,12 +1,12 @@
-@extends('admins.layouts.layout')
+@extends('penulis.layouts.layout')
 
-@section('admin-content')
+@section('penulis-content')
     <div class="container mx-auto p-6 bg-gray-50 min-h-screen">
-        <h1 class="text-3xl font-semibold text-gray-800 mb-6">Edit Article</h1>
+        <h1 class="text-3xl font-semibold text-gray-800 mb-6">Create New Article</h1>
 
-        <form action="{{ route('articles.update', $article->id) }}" class="flex w-full gap-8" method="POST" id="articleForm" enctype="multipart/form-data">
+        <form action="{{ route('penulis.articles.store') }}" method="POST" class="flex w-full gap-8"
+            enctype="multipart/form-data" id="articleForm">
             @csrf
-            @method('PUT')
 
             <div class="grid grid-cols-2 w-3/5 gap-6">
                 <!-- Left Column -->
@@ -14,7 +14,7 @@
                     <!-- Title Input -->
                     <div class="mb-4">
                         <label for="title" class="block text-sm font-medium text-gray-700">Title</label>
-                        <input type="text" id="title" name="title" value="{{ old('title', $article->title) }}"
+                        <input type="text" id="title" name="title"
                             class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                             required>
                     </div>
@@ -23,8 +23,7 @@
                     <div class="mb-4">
                         <label for="content" class="block text-sm font-medium text-gray-700">Content</label>
                         <textarea id="content" name="content" rows="5"
-                            class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                            required>{{ old('content', $article->content) }}</textarea>
+                            class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"></textarea>
                     </div>
                 </div>
             </div>
@@ -38,10 +37,7 @@
                         class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                         required>
                         @foreach ($categories as $category)
-                            <option value="{{ $category->id }}"
-                                {{ $article->category_id == $category->id ? 'selected' : '' }}>
-                                {{ $category->name }}
-                            </option>
+                            <option value="{{ $category->id }}">{{ $category->name }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -57,36 +53,22 @@
                             <!-- Search suggestions will appear here -->
                         </ul>
                     </div>
-                    <!-- Container for displaying added tags -->
-                    <div id="tagContainer" class="mt-2 flex flex-wrap space-x-2">
-                        @foreach ($article->tags as $tag)
-                            <span class="bg-blue-500 text-white px-2 py-1 rounded-full flex items-center space-x-2">
-                                {{ $tag->name }}
-                                <button type="button" class="ml-2 text-white removeTag" data-id="{{ $tag->id }}"
-                                    data-name="{{ $tag->name }}">✕</button>
-                            </span>
-                        @endforeach
-                    </div>
-                    <!-- Hidden input field to store selected tag IDs and new tags -->
-                    <input type="hidden" name="existing_tags" id="existingTagsInput"
-                        value="{{ implode(',', $article->tags->pluck('id')->toArray()) }}">
+                    <div id="tagContainer" class="mt-2 flex flex-wrap space-x-2"></div>
+                    <input type="hidden" name="existing_tags" id="existingTagsInput">
                     <input type="hidden" name="new_tags" id="newTagsInput">
-                    <input type="hidden" name="removed_tags" id="removedTagsInput">
                 </div>
 
-                <!-- HTML Lang Input -->
+                <!-- Meta Information Inputs -->
                 <div class="mb-4">
                     <label for="html_lang" class="block text-sm font-medium text-gray-700">HTML Lang</label>
                     <input type="text" id="html_lang" name="html_lang"
-                        value="{{ old('html_lang', $article->html_lang) }}"
                         class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
                 </div>
 
-                <!-- Description Textarea -->
                 <div class="mb-4">
                     <label for="description" class="block text-sm font-medium text-gray-700">Description</label>
                     <textarea id="description" name="description" rows="3"
-                        class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">{{ old('description', $article->description) }}</textarea>
+                        class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"></textarea>
                 </div>
 
                 <!-- Image Upload -->
@@ -98,35 +80,33 @@
                         </p>
                         <input type="file" id="image-upload" name="images" class="hidden" accept="image/*">
                     </div>
-                    <div id="preview-container" class="mt-4 {{ $article->images ? '' : 'hidden' }}">
-                        <img id="preview-image"
-                            src="{{ $article->images ? asset('storage/' . str_replace('storage/', '', $article->images)) : '' }}"
-                            alt="Image Preview" class="w-full h-auto rounded">
-                        <p id="file-name" class="text-sm text-gray-600">{{ basename($article->images) }}</p>
+                    <div id="preview-container" class="mt-4 hidden">
+                        <img id="preview-image" src="" alt="Image Preview" class="w-full h-auto rounded">
+                        <p id="file-name" class="text-sm text-gray-600"></p>
                         <button type="button" id="remove-image" class="mt-2 text-red-500 underline">Remove</button>
                     </div>
-
                 </div>
 
-                <!-- Alt Text Input -->
+
                 <div class="mb-4">
                     <label for="alt" class="block text-sm font-medium text-gray-700">Alt Text</label>
-                    <input type="text" id="alt" name="alt" value="{{ old('alt', $article->alt) }}"
+                    <input type="text" id="alt" name="alt"
                         class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
                 </div>
 
                 <!-- Submit Button -->
                 <div class="flex justify-end">
                     <button type="submit"
-                        class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 w-full rounded shadow">Update</button>
+                        class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 w-full rounded shadow">Save</button>
                 </div>
             </div>
+
         </form>
     </div>
 
     <script src="https://cdn.ckeditor.com/ckeditor5/35.3.2/super-build/ckeditor.js"></script>
     <script>
-        var uploadImageCK = "{{ route('article.upload') }}?_token={{ csrf_token() }}";
+        var uploadImageCK = "{{ route('penulis.article.upload') }}?_token={{ csrf_token() }}";
 
         // Initialize CKEditor for 'content' textarea
         CKEDITOR.ClassicEditor.create(document.querySelector('#content'), {
@@ -215,10 +195,9 @@
 
     <script>
         $(document).ready(function() {
-            let selectedTags = {!! json_encode($article->tags->pluck('id')->toArray()) !!}; // Array untuk menyimpan tag ID yang sudah ada
-            let tagNames = {!! json_encode($article->tags->pluck('name')->toArray()) !!}; // Array untuk menyimpan nama tag yang ditampilkan
+            let selectedTags = []; // Array untuk menyimpan tag ID yang ada di database
+            let tagNames = []; // Array untuk menyimpan nama tag yang ditampilkan
             let newTags = []; // Array untuk menyimpan tag baru yang belum ada di database
-            let removedTags = []; // Array untuk menyimpan tag yang dihapus
 
             function addTag(tagId, tagName, isNew = false) {
                 if (tagNames.includes(tagName)) {
@@ -226,6 +205,7 @@
                     return;
                 }
 
+                // Gunakan nama tag sebagai pengenal sementara untuk tag baru
                 if (isNew) {
                     newTags.push(tagName); // Tambah tag baru ke array newTags
                     tagId = tagName; // Gunakan tagName sebagai ID sementara untuk tag baru
@@ -236,11 +216,11 @@
 
                 // Tampilkan badge tag di dalam container
                 let tagBadge = `
-        <span class="bg-blue-500 text-white px-2 py-1 rounded-full flex items-center space-x-2">
-            ${tagName}
-            <button type="button" class="ml-2 text-white removeTag" data-id="${tagId}" data-name="${tagName}">✕</button>
-        </span>
-    `;
+            <span class="bg-blue-500 text-white px-2 py-1 rounded-full flex items-center space-x-2">
+                ${tagName}
+                <button type="button" class="ml-2 text-white removeTag" data-id="${tagId}" data-name="${tagName}">✕</button>
+            </span>
+        `;
 
                 $('#tagContainer').append(tagBadge);
 
@@ -252,7 +232,6 @@
                 $('#tagInput').val('');
                 $('#tagSuggestions').empty().hide();
             }
-
 
             // Search tag suggestions di database
             $('#tagInput').on('input', function() {
@@ -274,13 +253,14 @@
                                 </li>
                             `);
                                 });
-                                $('#tagSuggestions').show();
                             } else {
-                                $('#tagSuggestions').append(
-                                    `<li class="px-4 py-2 cursor-default">No tags found</li>`
-                                );
-                                $('#tagSuggestions').show();
+                                $('#tagSuggestions').append(`
+                            <li class="px-4 py-2 cursor-pointer bg-blue-500 text-white rounded-lg" data-id="new" data-name="${searchTerm}">
+                                Add "${searchTerm}" as a new tag
+                            </li>
+                        `);
                             }
+                            $('#tagSuggestions').show();
                         },
                         error: function() {
                             console.error("Error fetching tags");
@@ -295,7 +275,8 @@
             $('#tagSuggestions').on('click', 'li', function() {
                 const tagId = $(this).data('id'); // Ambil ID dari database jika ada
                 const tagName = $(this).data('name');
-                addTag(tagId, tagName); // Tambah tag
+                const isNew = tagId === 'new'; // Cek apakah ini tag baru
+                addTag(null, tagName, isNew); // Tambah tag baru
             });
 
             // Tambahkan tag baru saat tekan enter
@@ -303,32 +284,20 @@
                 if (e.which == 13 && $('#tagInput').val().trim()) { // Enter key
                     e.preventDefault();
                     const tagName = $('#tagInput').val().trim();
-                    // Jika tag baru, tambahkan sebagai tag baru tanpa id
-                    addTag(null, tagName, true); // Set isNew = true
+                    addTag(null, tagName, true); // Tambahkan tag baru
                 }
             });
 
+            // Hapus tag secara dinamis
             $('#tagContainer').on('click', '.removeTag', function() {
-                const tagId = $(this).data('id');
                 const tagName = $(this).data('name');
-
-                selectedTags = selectedTags.filter(t => t !== tagId); // Hapus dari array tag yang ada
+                selectedTags = selectedTags.filter(t => t !== $(this).data(
+                'id')); // Hapus dari array tag yang ada
                 newTags = newTags.filter(t => t !== tagName); // Hapus dari array tag baru
                 tagNames = tagNames.filter(t => t !== tagName); // Hapus dari array tagNames
-
-                // Simpan ID tag yang dihapus
-                if (tagId !== tagName) { // Pastikan bukan tag baru yang dihapus
-                    removedTags.push(tagId);
-                }
-
-                // Update hidden input untuk tag yang dihapus
-                $('#removedTagsInput').val(removedTags.join(','));
-
                 $(this).parent().remove(); // Hapus badge dari DOM
-
-                // Update hidden input fields
-                $('#existingTagsInput').val(selectedTags.join(',')); // Update tag ID yang ada
-                $('#newTagsInput').val(newTags.join(',')); // Update tag baru
+                $('#existingTagsInput').val(selectedTags.join(',')); // Update hidden input
+                $('#newTagsInput').val(newTags.join(',')); // Update hidden input
             });
         });
     </script>
@@ -341,7 +310,7 @@
             const fileName = document.getElementById('file-name');
             const removeImageBtn = document.getElementById('remove-image');
 
-            // Trigger file input when clicking on drop area
+            // Trigger file input when clicking on the drop area
             dropArea.addEventListener('click', () => fileInput.click());
 
             // Handle file selection
@@ -366,7 +335,8 @@
             });
 
             dropArea.addEventListener('drop', (e) => {
-                const files = e.dataTransfer.files;
+                const dt = e.dataTransfer;
+                const files = dt.files;
                 handleFiles({
                     target: {
                         files
@@ -381,6 +351,7 @@
                     previewImage.src = URL.createObjectURL(file);
                     fileName.textContent = `${file.name} (${(file.size / 1024).toFixed(2)} KB)`;
                     previewContainer.classList.remove('hidden');
+                    document.getElementById('images').value = file.name; // Simpan nama file ke hidden input
                 }
             }
 
@@ -390,6 +361,7 @@
                 previewImage.src = '';
                 fileName.textContent = '';
                 fileInput.value = '';
+                document.getElementById('images').value = ''; // Hapus nama file di hidden input
             });
         });
     </script>

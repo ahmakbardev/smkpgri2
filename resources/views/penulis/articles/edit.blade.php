@@ -1,10 +1,11 @@
-@extends('admins.layouts.layout')
+@extends('penulis.layouts.layout')
 
-@section('admin-content')
+@section('penulis-content')
     <div class="container mx-auto p-6 bg-gray-50 min-h-screen">
         <h1 class="text-3xl font-semibold text-gray-800 mb-6">Edit Article</h1>
 
-        <form action="{{ route('articles.update', $article->id) }}" class="flex w-full gap-8" method="POST" id="articleForm" enctype="multipart/form-data">
+        <form action="{{ route('penulis.articles.update', $article->id) }}" class="flex w-full gap-8" method="POST"
+            id="articleForm" enctype="multipart/form-data">
             @csrf
             @method('PUT')
 
@@ -126,7 +127,7 @@
 
     <script src="https://cdn.ckeditor.com/ckeditor5/35.3.2/super-build/ckeditor.js"></script>
     <script>
-        var uploadImageCK = "{{ route('article.upload') }}?_token={{ csrf_token() }}";
+        var uploadImageCK = "{{ route('penulis.article.upload') }}?_token={{ csrf_token() }}";
 
         // Initialize CKEditor for 'content' textarea
         CKEDITOR.ClassicEditor.create(document.querySelector('#content'), {
@@ -215,10 +216,10 @@
 
     <script>
         $(document).ready(function() {
-            let selectedTags = {!! json_encode($article->tags->pluck('id')->toArray()) !!}; // Array untuk menyimpan tag ID yang sudah ada
-            let tagNames = {!! json_encode($article->tags->pluck('name')->toArray()) !!}; // Array untuk menyimpan nama tag yang ditampilkan
-            let newTags = []; // Array untuk menyimpan tag baru yang belum ada di database
-            let removedTags = []; // Array untuk menyimpan tag yang dihapus
+            let selectedTags = {!! json_encode($article->tags->pluck('id')->toArray()) !!}; // Tag ID yang sudah ada
+            let tagNames = {!! json_encode($article->tags->pluck('name')->toArray()) !!}; // Nama tag yang sudah ada
+            let newTags = []; // Tag baru
+            let removedTags = []; // Tag yang dihapus
 
             function addTag(tagId, tagName, isNew = false) {
                 if (tagNames.includes(tagName)) {
@@ -227,34 +228,33 @@
                 }
 
                 if (isNew) {
-                    newTags.push(tagName); // Tambah tag baru ke array newTags
-                    tagId = tagName; // Gunakan tagName sebagai ID sementara untuk tag baru
+                    newTags.push(tagName); // Tambahkan ke array tag baru
+                    tagId = tagName; // Gunakan nama sebagai ID sementara
                 } else {
-                    selectedTags.push(tagId); // Tambah tag ID yang ada ke array selectedTags
+                    selectedTags.push(tagId); // Tambahkan ke array tag yang ada
                 }
-                tagNames.push(tagName); // Tambah nama tag ke array tagNames
+                tagNames.push(tagName); // Tambahkan ke array nama tag
 
-                // Tampilkan badge tag di dalam container
+                // Tampilkan tag sebagai badge
                 let tagBadge = `
-        <span class="bg-blue-500 text-white px-2 py-1 rounded-full flex items-center space-x-2">
-            ${tagName}
-            <button type="button" class="ml-2 text-white removeTag" data-id="${tagId}" data-name="${tagName}">✕</button>
-        </span>
-    `;
+            <span class="bg-blue-500 text-white px-2 py-1 rounded-full flex items-center space-x-2">
+                ${tagName}
+                <button type="button" class="ml-2 text-white removeTag" data-id="${tagId}" data-name="${tagName}">✕</button>
+            </span>
+        `;
 
                 $('#tagContainer').append(tagBadge);
 
-                // Update hidden input fields
-                $('#existingTagsInput').val(selectedTags.join(',')); // Simpan tag ID yang ada
-                $('#newTagsInput').val(newTags.join(',')); // Simpan tag baru
+                // Perbarui input tersembunyi
+                $('#existingTagsInput').val(selectedTags.join(','));
+                $('#newTagsInput').val(newTags.join(','));
 
-                // Kosongkan input field dan sembunyikan dropdown suggestions
+                // Reset input tag dan sembunyikan saran
                 $('#tagInput').val('');
                 $('#tagSuggestions').empty().hide();
             }
 
-
-            // Search tag suggestions di database
+            // Cari tag yang ada atau tampilkan opsi untuk menambahkan tag baru
             $('#tagInput').on('input', function() {
                 const searchTerm = $(this).val().trim();
                 if (searchTerm.length > 1) {
@@ -274,13 +274,14 @@
                                 </li>
                             `);
                                 });
-                                $('#tagSuggestions').show();
                             } else {
-                                $('#tagSuggestions').append(
-                                    `<li class="px-4 py-2 cursor-default">No tags found</li>`
-                                );
-                                $('#tagSuggestions').show();
+                                $('#tagSuggestions').append(`
+                            <li class="px-4 py-2 cursor-pointer bg-blue-500 text-white" data-id="new" data-name="${searchTerm}">
+                                Add "${searchTerm}" as a new tag
+                            </li>
+                        `);
                             }
+                            $('#tagSuggestions').show();
                         },
                         error: function() {
                             console.error("Error fetching tags");
@@ -291,46 +292,44 @@
                 }
             });
 
-            // Pilih tag dari dropdown suggestions
+            // Pilih tag dari dropdown atau tambahkan tag baru
             $('#tagSuggestions').on('click', 'li', function() {
-                const tagId = $(this).data('id'); // Ambil ID dari database jika ada
+                const tagId = $(this).data('id');
                 const tagName = $(this).data('name');
-                addTag(tagId, tagName); // Tambah tag
+                const isNew = tagId === 'new'; // Apakah tag baru?
+                addTag(tagId, tagName, isNew);
             });
 
-            // Tambahkan tag baru saat tekan enter
+            // Tambahkan tag baru dengan tombol Enter
             $('#tagInput').on('keypress', function(e) {
-                if (e.which == 13 && $('#tagInput').val().trim()) { // Enter key
+                if (e.which == 13 && $(this).val().trim()) { // Tekan Enter
                     e.preventDefault();
-                    const tagName = $('#tagInput').val().trim();
-                    // Jika tag baru, tambahkan sebagai tag baru tanpa id
-                    addTag(null, tagName, true); // Set isNew = true
+                    const tagName = $(this).val().trim();
+                    addTag(null, tagName, true); // Tambahkan sebagai tag baru
                 }
             });
 
+            // Hapus tag
             $('#tagContainer').on('click', '.removeTag', function() {
                 const tagId = $(this).data('id');
                 const tagName = $(this).data('name');
 
-                selectedTags = selectedTags.filter(t => t !== tagId); // Hapus dari array tag yang ada
-                newTags = newTags.filter(t => t !== tagName); // Hapus dari array tag baru
-                tagNames = tagNames.filter(t => t !== tagName); // Hapus dari array tagNames
+                selectedTags = selectedTags.filter(id => id !== tagId); // Hapus dari array tag yang ada
+                newTags = newTags.filter(name => name !== tagName); // Hapus dari array tag baru
+                tagNames = tagNames.filter(name => name !== tagName); // Hapus dari array nama tag
 
-                // Simpan ID tag yang dihapus
-                if (tagId !== tagName) { // Pastikan bukan tag baru yang dihapus
+                // Jika tag yang dihapus adalah tag lama, tambahkan ke array removedTags
+                if (tagId !== tagName) {
                     removedTags.push(tagId);
                 }
 
-                // Update hidden input untuk tag yang dihapus
-                $('#removedTagsInput').val(removedTags.join(','));
+                $('#removedTagsInput').val(removedTags.join(',')); // Perbarui input untuk tag yang dihapus
 
                 $(this).parent().remove(); // Hapus badge dari DOM
-
-                // Update hidden input fields
-                $('#existingTagsInput').val(selectedTags.join(',')); // Update tag ID yang ada
-                $('#newTagsInput').val(newTags.join(',')); // Update tag baru
+                $('#existingTagsInput').val(selectedTags.join(',')); // Perbarui input untuk tag yang ada
+                $('#newTagsInput').val(newTags.join(',')); // Perbarui input untuk tag baru
             });
-        });
+        });5
     </script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {

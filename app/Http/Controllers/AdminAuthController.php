@@ -19,9 +19,18 @@ class AdminAuthController extends Controller
             'password' => ['required'],
         ]);
 
+        // Check if login attempt is for admin
         if (Auth::guard('admin')->attempt($credentials, $request->remember)) {
-            // Authentication successful
             return redirect()->intended('/dashboard');
+        }
+
+        // Check if login attempt is for user (penulis)
+        if (Auth::attempt($credentials, $request->remember)) {
+            $user = Auth::user();
+
+            if ($user->role === 'Penulis') { // Role check
+                return redirect()->intended('/penulis/dashboard'); // Redirect to penulis dashboard
+            }
         }
 
         // Authentication failed
@@ -29,6 +38,7 @@ class AdminAuthController extends Controller
             'email' => 'Invalid credentials provided.',
         ]);
     }
+
 
     public function logout()
     {

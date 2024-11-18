@@ -3,8 +3,11 @@
 use App\Http\Controllers\AdminAuthController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\CategoryArticleController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\FasilitasBidangController;
 use App\Http\Controllers\GlobalController;
+use App\Http\Controllers\GuruController;
+use App\Http\Controllers\IndexController;
 use App\Http\Controllers\JurusanController;
 use App\Http\Controllers\SchoolProfileController;
 use App\Http\Controllers\TagsController;
@@ -31,9 +34,7 @@ Route::middleware(['auth:admin'])->group(function () {
     });
 
     Route::resource('category-articles', CategoryArticleController::class);
-    Route::resource('articles', ArticleController::class);
-    Route::post('/article/upload', [ArticleController::class, 'uploadImage'])->name('article.upload');
-    Route::patch('/articles/{id}/update-status', [ArticleController::class, 'updateStatus'])->name('articles.updateStatus');
+
 
     Route::get('/jurusans', [JurusanController::class, 'index'])->name('jurusans.index');
     Route::post('/bidangs', [JurusanController::class, 'storeBidang']);
@@ -102,11 +103,24 @@ Route::middleware(['auth:admin'])->group(function () {
 
     Route::get('/admin/sejarah', [SchoolProfileController::class, 'sejarahForm'])->name('school_profile.sejarah_form');
     Route::post('/admin/sejarah', [SchoolProfileController::class, 'storeOrUpdateSejarah'])->name('school_profile.store_or_update_sejarah');
+
+    Route::resource('guru', GuruController::class);
 });
 
-Route::get('/', function () {
-    return view('index');
+Route::middleware(['auth', 'role:Penulis'])->prefix('penulis')->as('penulis.')->group(function () {
+    Route::get('/dashboard', function () {
+        return view('penulis.index');
+    })->name('dashboard');
+    Route::resource('articles', ArticleController::class);
+    Route::post('/article/upload', [ArticleController::class, 'uploadImage'])->name('article.upload');
+    Route::patch('/articles/{id}/update-status', [ArticleController::class, 'updateStatus'])->name('articles.updateStatus');
 });
-Route::get('/detail-article', function () {
-    return view('articles.detail');
-})->name('detail-article');
+
+
+Route::get('/', [IndexController::class, 'index']);
+Route::get('/detail-article/{id}', [IndexController::class, 'show'])->name('detail-article');
+Route::get('/articles/category/{categoryId}', [IndexController::class, 'filterByCategory'])->name('articles.filter');
+
+Route::post('/article/{id}/comment', [CommentController::class, 'store'])->name('article.comment');
+
+Route::get('/guru-smk', [IndexController::class, 'listGuru'])->name('guru.list');

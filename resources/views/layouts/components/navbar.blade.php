@@ -21,14 +21,14 @@
                     class="absolute top-full mt-2 z-[21] left-0 w-48 bg-white p-1 text-gray-800 rounded-lg shadow-lg opacity-0 transition-opacity duration-300 invisible">
                     {{-- <a href="#" class="block px-4 py-2 hover:bg-gray-100">Profil Sekolah</a> --}}
                     {{-- <a href="#" class="block px-4 py-2 hover:bg-gray-100">Prestasi</a> --}}
-                    <a href="#" class="block px-4 py-2 hover:bg-gray-100">Sejarah</a>
-                    <a href="#" class="block px-4 py-2 hover:bg-gray-100">Visi Misi</a>
-                    <a href="#" class="block px-4 py-2 hover:bg-gray-100">Guru</a>
+                    {{-- <a href="#" class="block px-4 py-2 hover:bg-gray-100">Sejarah</a> --}}
+                    <a href="#mission" class="block px-4 py-2 hover:bg-gray-100">Visi Misi</a>
+                    <a href="{{ route('guru.list') }}" class="block px-4 py-2 hover:bg-gray-100">Guru</a>
                 </div>
             </div>
 
             <!-- Konsentrasi Keahlian Dropdown -->
-            <button id="konsentrasiBtn" class="relative flex items-center">Konsentrasi Keahlian
+            {{-- <button id="konsentrasiBtn" class="relative flex items-center">Konsentrasi Keahlian
                 <i data-feather="chevron-down" class="ml-2 w-4 transition-transform"></i>
             </button>
 
@@ -36,7 +36,7 @@
                 <i data-feather="chevron-down" class="ml-2 w-4 transition-transform"></i>
             </button>
             <button id="fasilitasBtn" class="relative flex items-center">Fasilitas
-                <i data-feather="chevron-down" class="ml-2 w-4 transition-transform"></i>
+                <i data-feather="chevron-down" class="ml-2 w-4 transition-transform"></i> --}}
             </button>
             <a href="#" class="">Berita</a>
             <a href="#" class="">PPDB</a>
@@ -62,7 +62,7 @@
         </div>
     </div>
 
-    <div id="siswaDropdown"
+    {{-- <div id="siswaDropdown"
         class="absolute top-full -mt-1 left-0 w-full bg-white text-gray-800 overflow-hidden max-h-0 z-20 shadow-lg transition-all duration-500 ease-in-out opacity-0">
         <div class="container mx-auto py-8 px-4 grid grid-cols-4 gap-8">
             <div class="space-y-4">
@@ -152,7 +152,7 @@
                 </ul>
             </div>
         </div>
-    </div>
+    </div> --}}
 
     <!-- Mobile Menu (Sidebar) -->
     <div id="mobileMenu"
@@ -167,9 +167,11 @@
             </button>
         </div>
         <nav class="flex flex-col space-y-4 p-4">
-            <a href="#" class="">Jurusan</a>
+            {{-- <a href="#" class="">Jurusan</a>
             <a href="#" class="">Fasilitas</a>
-            <a href="#" class="">Tentang</a>
+            <a href="#" class="">Tentang</a> --}}
+            <a href="{{ route('guru.list') }}" class="">Guru</a>
+            <a href="#" class="">Berita</a>
             <a href="#" class="">PPDB</a>
             <a href="#"
                 class="bg-green-500 text-white transition-all ease-in-out px-5 py-2 rounded-md text-sm font-medium hover:bg-green-700 flex items-center space-x-2">

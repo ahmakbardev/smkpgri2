@@ -6,6 +6,7 @@ use App\Models\Article;
 use App\Models\CategoryArticle;
 use App\Models\Tag;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
@@ -13,15 +14,26 @@ class ArticleController extends Controller
 {
     public function index()
     {
-        $articles = Article::with('category', 'tags')->get();
-        return view('admins.articles.index', compact('articles'));
+        $user = Auth::user(); // Ambil data pengguna yang sedang login
+
+        if ($user->role === 'Penulis') {
+            // Tampilkan hanya artikel milik penulis yang sedang login
+            $articles = Article::with('category', 'tags')
+                ->where('user_id', $user->id)
+                ->get();
+        } else {
+            // Tampilkan semua artikel jika bukan Penulis
+            $articles = Article::with('category', 'tags')->get();
+        }
+
+        return view('penulis.articles.index', compact('articles'));
     }
 
     public function create()
     {
         $categories = CategoryArticle::all();
         $tags = Tag::all(); // Untuk select tag
-        return view('admins.articles.create', compact('categories', 'tags'));
+        return view('penulis.articles.create', compact('categories', 'tags'));
     }
 
     public function store(Request $request)
@@ -34,8 +46,8 @@ class ArticleController extends Controller
             'new_tags' => 'nullable|string',
             'html_lang' => 'nullable|string',
             'description' => 'nullable|string',
-            'images' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Validasi file gambar
-            'alt' => 'nullable|string', // teks alternatif gambar
+            'images' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'alt' => 'nullable|string',
         ]);
 
         // Handle upload gambar jika ada
@@ -47,6 +59,7 @@ class ArticleController extends Controller
             $imagePath = str_replace('public/', 'storage/', $path); // Convert ke path yang bisa diakses
         }
 
+        $user_id = auth()->id(); // Tambahkan user_id dari pengguna yang login
         // Create the article
         $article = Article::create([
             'title' => $validated['title'],
@@ -57,17 +70,16 @@ class ArticleController extends Controller
             'description' => $validated['description'],
             'images' => $imagePath,
             'alt' => $validated['alt'],
+            'user_id' => $user_id, // Tambahkan user_id dari pengguna yang login
         ]);
 
         // Attach existing tags
-        // Attach existing tags only if IDs are valid
         if (!empty($validated['existing_tags'])) {
             $existingTagIds = array_filter(explode(',', $validated['existing_tags']));
             if (!empty($existingTagIds)) {
                 $article->tags()->attach($existingTagIds);
             }
         }
-
 
         // Add new tags
         if (!empty($validated['new_tags'])) {
@@ -78,9 +90,8 @@ class ArticleController extends Controller
             }
         }
 
-        return redirect()->route('articles.index')->with('success', 'Article created successfully.');
+        return redirect()->route('penulis.articles.index')->with('success', 'Article created successfully.');
     }
-
 
     public function uploadImage(Request $request)
     {
@@ -117,23 +128,32 @@ class ArticleController extends Controller
         return response()->json(['uploaded' => false, 'error' => ['message' => 'No file uploaded']], 400);
     }
 
-
     public function edit(Article $article)
     {
+        if ($article->user_id !== auth()->id()) {
+            abort(403, 'Unauthorized action.');
+        }
+
         $categories = CategoryArticle::all();
         $tags = Tag::all();
-        return view('admins.articles.edit', compact('article', 'categories', 'tags'));
+        return view('penulis.articles.edit', compact('article', 'categories', 'tags'));
     }
 
     public function update(Request $request, Article $article)
     {
+        // Pastikan hanya pemilik artikel yang dapat mengedit
+        if ($article->user_id !== auth()->id()) {
+            abort(403, 'Unauthorized action.');
+        }
+
+        // Validasi data
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'content' => 'required|string',
             'category_id' => 'required|exists:category_articles,id',
-            'existing_tags' => 'nullable|string',
-            'new_tags' => 'nullable|string',
-            'removed_tags' => 'nullable|string',
+            'existing_tags' => 'nullable|string', // Tag yang sudah ada di database
+            'new_tags' => 'nullable|string', // Tag baru yang akan dibuat
+            'removed_tags' => 'nullable|string', // Tag yang akan dihapus
             'html_lang' => 'nullable|string',
             'description' => 'nullable|string',
             'images' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
@@ -141,17 +161,16 @@ class ArticleController extends Controller
         ]);
 
         // Handle image upload
+        $imagePath = $article->images; // Default gunakan gambar lama
         if ($request->hasFile('images')) {
             if ($article->images) {
-                Storage::delete(str_replace('storage/', 'public/', $article->images)); // Delete old image
+                Storage::delete(str_replace('storage/', 'public/', $article->images)); // Hapus gambar lama
             }
-            $imagePath = $request->file('images')->store('public/articles');
-            $imagePath = str_replace('public/', 'storage/', $imagePath);
-        } else {
-            $imagePath = $article->images;
+            $uploadedImage = $request->file('images')->store('public/articles');
+            $imagePath = str_replace('public/', 'storage/', $uploadedImage);
         }
 
-        // Update article
+        // Update artikel
         $article->update([
             'title' => $validated['title'],
             'content' => $validated['content'],
@@ -162,8 +181,8 @@ class ArticleController extends Controller
             'alt' => $validated['alt'],
         ]);
 
-        // Handle tags
-        // Detach removed tags
+        // Handle tags logic
+        // Hapus tag yang dihapus
         if (!empty($validated['removed_tags'])) {
             $removedTagIds = array_filter(explode(',', $validated['removed_tags']));
             if (!empty($removedTagIds)) {
@@ -171,7 +190,7 @@ class ArticleController extends Controller
             }
         }
 
-        // Attach existing tags
+        // Tambahkan tag yang sudah ada
         if (!empty($validated['existing_tags'])) {
             $existingTagIds = array_filter(explode(',', $validated['existing_tags']));
             if (!empty($existingTagIds)) {
@@ -179,16 +198,16 @@ class ArticleController extends Controller
             }
         }
 
-        // Add new tags
+        // Tambahkan tag baru
         if (!empty($validated['new_tags'])) {
-            $newTagNames = explode(',', $validated['new_tags']);
+            $newTagNames = array_filter(explode(',', $validated['new_tags']));
             foreach ($newTagNames as $tagName) {
                 $newTag = Tag::firstOrCreate(['name' => $tagName]);
                 $article->tags()->attach($newTag->id);
             }
         }
 
-        return redirect()->route('articles.index')->with('success', 'Article updated successfully.');
+        return redirect()->route('penulis.articles.index')->with('success', 'Article updated successfully.');
     }
 
 
@@ -219,6 +238,13 @@ class ArticleController extends Controller
 
     public function destroy(Article $article)
     {
+        if ($article->user_id !== auth()->id()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Unauthorized action.',
+            ], 403);
+        }
+
         $article->delete();
 
         return response()->json([

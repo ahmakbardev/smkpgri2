@@ -33,10 +33,6 @@
                     <ul class="nav flex-col">
                         <li class="nav-item"><a class="nav-link" href="{{ route('category-articles.index') }}"><i
                                     data-feather="tag" class="w-4 h-4 mr-2"></i> Categories</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{{ route('articles.create') }}"><i
-                                    data-feather="edit" class="w-4 h-4 mr-2"></i> Create New Article</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{{ route('articles.index') }}"><i
-                                    data-feather="file" class="w-4 h-4 mr-2"></i> Manage All Articles</a></li>
                         <li class="nav-item"><a class="nav-link" href="#!"><i data-feather="message-square"
                                     class="w-4 h-4 mr-2"></i> Manage Comments</a></li>
                     </ul>
@@ -116,13 +112,13 @@
             <li class="nav-item">
                 <div class="navbar-heading">Profil Sekolah</div>
             </li>
-            <li class="nav-item"><a class="nav-link" href="#!"><i data-feather="user"
-                        class="w-4 h-4 mr-2"></i> Profil Sekolah</a></li>
-            <li class="nav-item"><a class="nav-link" href="{{ route('school_profile.sejarah_form') }}"><i data-feather="book"
-                        class="w-4 h-4 mr-2"></i> Sejarah</a></li>
-            <li class="nav-item"><a class="nav-link" href="{{ route('school_profile.visi_misi_form') }}"><i data-feather="compass"
-                        class="w-4 h-4 mr-2"></i> Visi Misi</a></li>
-            <li class="nav-item"><a class="nav-link" href="#!"><i data-feather="users"
+            <li class="nav-item"><a class="nav-link" href="#!"><i data-feather="user" class="w-4 h-4 mr-2"></i>
+                    Profil Sekolah</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ route('school_profile.sejarah_form') }}"><i
+                        data-feather="book" class="w-4 h-4 mr-2"></i> Sejarah</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ route('school_profile.visi_misi_form') }}"><i
+                        data-feather="compass" class="w-4 h-4 mr-2"></i> Visi Misi</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ route('guru.index') }}"><i data-feather="users"
                         class="w-4 h-4 mr-2"></i> Guru</a></li>
         </ul>
     </div>
@@ -151,7 +147,7 @@
 
             if (bidangId && $(`#jurusanList${bidangId}`).children().length === 0) {
                 $(`#jurusanList${bidangId}`).html(
-                '<li class="nav-item">Loading...</li>'); // Tambah loading indicator
+                    '<li class="nav-item">Loading...</li>'); // Tambah loading indicator
                 $.get(`/bidangs/${bidangId}/global-jurusan`, function(data) {
                     $(`#jurusanList${bidangId}`).empty(); // Kosongkan sebelum tambahkan data
                     if (data.jurusans && data.jurusans.length > 0) {
@@ -171,7 +167,7 @@
                     }
                 }).fail(function(xhr, status, error) {
                     console.error('Error fetching jurusans:', xhr
-                    .responseText); // Untuk menampilkan error
+                        .responseText); // Untuk menampilkan error
                 });
             }
         });
@@ -192,10 +188,10 @@
 
             if (fasilitasBidangId && $(`#facilityList${fasilitasBidangId}`).children().length === 0) {
                 $(`#facilityList${fasilitasBidangId}`).html(
-                '<li class="nav-item">Loading...</li>'); // Tambah loading indicator
+                    '<li class="nav-item">Loading...</li>'); // Tambah loading indicator
                 $.get(`/fasilitas-bidangs/${fasilitasBidangId}/sideFacilities`, function(data) {
                     $(`#facilityList${fasilitasBidangId}`)
-                .empty(); // Kosongkan sebelum tambahkan data
+                        .empty(); // Kosongkan sebelum tambahkan data
                     if (data.facilities && data.facilities.length > 0) {
                         data.facilities.forEach(function(facility) {
                             $(`#facilityList${fasilitasBidangId}`).append(`
@@ -218,7 +214,7 @@
                     feather.replace(); // Refresh icons
                 }).fail(function(xhr, status, error) {
                     console.error('Error fetching facilities:', xhr
-                    .responseText); // Untuk menampilkan error
+                        .responseText); // Untuk menampilkan error
                 });
             }
         });
