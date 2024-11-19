@@ -2115,6 +2115,18 @@ video {
   text-wrap: wrap;
 }
 
+.group\/name1:hover .group-hover\/name1\:text-wrap {
+  text-wrap: wrap;
+}
+
+.group\/name2:hover .group-hover\/name2\:text-wrap {
+  text-wrap: wrap;
+}
+
+.group\/name3:hover .group-hover\/name3\:text-wrap {
+  text-wrap: wrap;
+}
+
 .group:hover .group-hover\:opacity-100 {
   opacity: 1;
 }
