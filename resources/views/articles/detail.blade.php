@@ -7,8 +7,8 @@
             <!-- Section for Article Author -->
             <div class="bg-white p-4 rounded-lg shadow-md mb-6">
                 <div class="flex items-center space-x-4">
-                    <img src="{{ $article->author->avatar ?? 'https://i.pravatar.cc/50?img=1' }}" alt="Author Avatar"
-                        class="w-12 h-12 rounded-full">
+                    <img src="{{ $article->author->profile_picture ?? asset('assets/images/avatar/avatar-1.jpg') }}"
+                        alt="Author Avatar" class="w-12 h-12 rounded-full">
                     <div>
                         <h3 class="font-semibold text-lg">{{ $article->author->name }}</h3>
                         <p class="text-sm text-gray-600">By {{ $article->author->name }}</p>
