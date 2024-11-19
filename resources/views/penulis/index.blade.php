@@ -31,6 +31,8 @@
         <div class="mb-4">
             <label for="password" class="block text-gray-700 font-bold mb-2">Password Baru</label>
             <input type="password" id="password" name="password" class="w-full p-2 border rounded-lg">
+            <span class="text-red-500 text-sm">Kosongi jika tidak ingin mengganti password</span>
+
             @error('password')
                 <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
             @enderror
@@ -39,11 +41,14 @@
         <div class="mb-4">
             <label for="password_confirmation" class="block text-gray-700 font-bold mb-2">Konfirmasi Password Baru</label>
             <input type="password" id="password_confirmation" name="password_confirmation" class="w-full p-2 border rounded-lg">
+            <span class="text-red-500 text-sm">Kosongi jika tidak ingin mengganti password</span>
+
         </div>
 
         <div class="mb-4">
             <label for="profile_picture" class="block text-gray-700 font-bold mb-2">Foto Profil</label>
             <input type="file" id="profile_picture" name="profile_picture" class="w-full p-2 border rounded-lg">
+            <span class="text-red-500 text-sm">Crop foto menjadi ratio persegi terlebih dahulu</span>
             @if ($user->profile_picture)
                 <img src="{{ asset('storage/' . $user->profile_picture) }}" alt="Profile Picture" class="mt-2 w-20 h-20 object-cover object-center rounded-full">
             @endif
