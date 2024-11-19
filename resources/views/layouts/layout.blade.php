@@ -13,23 +13,22 @@
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
 
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <!-- Append version number to CSS file name -->
+    <link rel="stylesheet" href="{{ asset('css/app.css?v=1.01') }}">
+    <!-- Add cache-control headers for CSS and JavaScript files -->
+    <link rel="preload" href="{{ asset('css/app.css?v=1.01') }}" as="style" crossorigin="anonymous" />
 </head>
 
 <body class="antialiased font-jakarta">
 
-    @if (!in_array(Route::currentRouteName(), [
-            'admin.login',
-        ]))
+    @if (!in_array(Route::currentRouteName(), ['admin.login']))
         @include('layouts.components.navbar')
     @endif
     <main class="w-full">
         @yield('content')
     </main>
-    
-    @if (!in_array(Route::currentRouteName(), [
-            'admin.login',
-        ]))
+
+    @if (!in_array(Route::currentRouteName(), ['admin.login']))
         @include('layouts.components.footer')
     @endif
 
