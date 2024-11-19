@@ -16,6 +16,7 @@ class IndexController extends Controller
     {
         // Artikel untuk bagian utama
         $articles = Article::with('category', 'tags', 'author')
+            ->where('status', 'published') // Tambahkan kondisi untuk hanya artikel yang dipublish
             ->orderByDesc('is_favorite') // Prioritaskan artikel yang di-favoritkan
             ->latest()
             ->take(18)
@@ -23,6 +24,7 @@ class IndexController extends Controller
 
         // Artikel untuk carousel
         $carouselArticles = Article::with('author')
+            ->where('status', 'published') // Tambahkan kondisi untuk hanya artikel yang dipublish
             ->orderByDesc('is_favorite') // Prioritaskan artikel yang di-favoritkan
             ->latest()
             ->take(3)
@@ -41,6 +43,7 @@ class IndexController extends Controller
 
         return view('index', compact('articles', 'carouselArticles', 'categories', 'authors', 'visi', 'misi'));
     }
+
 
 
     public function filterByCategory($categoryId)
@@ -67,6 +70,7 @@ class IndexController extends Controller
 
         // Ambil artikel terbaru lainnya
         $latestArticles = Article::latest()
+            ->where('status', 'published') // Tambahkan kondisi untuk hanya artikel yang dipublish
             ->where('id', '!=', $article->id)
             ->take(3)
             ->get();

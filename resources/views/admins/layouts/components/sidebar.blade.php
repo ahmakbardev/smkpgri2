@@ -33,6 +33,8 @@
                     <ul class="nav flex-col">
                         <li class="nav-item"><a class="nav-link" href="{{ route('category-articles.index') }}"><i
                                     data-feather="tag" class="w-4 h-4 mr-2"></i> Categories</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ route('admin.articles') }}"><i
+                                    data-feather="file" class="w-4 h-4 mr-2"></i> Manage All Articles</a></li>
                         <li class="nav-item"><a class="nav-link" href="#!"><i data-feather="message-square"
                                     class="w-4 h-4 mr-2"></i> Manage Comments</a></li>
                     </ul>

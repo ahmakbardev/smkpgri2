@@ -44,7 +44,7 @@
 
         <!-- Desktop Authentication Links -->
         <div class="hidden md:flex items-center space-x-4">
-            <a href="#"
+            <a href="https://ppdb.smkpgri2malang.sch.id/"
                 class="bg-green-500 text-white transition-all ease-in-out px-5 py-2 rounded-md text-sm font-medium hover:bg-green-700 flex items-center space-x-2">
                 <span>Daftar Sekarang</span>
             </a>
@@ -171,9 +171,9 @@
             <a href="#" class="">Fasilitas</a>
             <a href="#" class="">Tentang</a> --}}
             <a href="{{ route('guru.list') }}" class="">Guru</a>
-            <a href="#" class="">Berita</a>
-            <a href="#" class="">PPDB</a>
-            <a href="#"
+            {{-- <a href="#" class="">Berita</a> --}}
+            <a href="https://ppdb.smkpgri2malang.sch.id/" class="">PPDB</a>
+            <a href="https://ppdb.smkpgri2malang.sch.id/"
                 class="bg-green-500 text-white transition-all ease-in-out px-5 py-2 rounded-md text-sm font-medium hover:bg-green-700 flex items-center space-x-2">
                 <span>Daftar Sekarang</span>
             </a>

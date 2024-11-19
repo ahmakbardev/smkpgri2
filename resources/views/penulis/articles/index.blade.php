@@ -25,12 +25,7 @@
                 <tbody class="text-gray-700">
                     @foreach ($articles as $article)
                         <tr class="border-b border-gray-200 hover:bg-gray-50" data-id="{{ $article->id }}">
-                            <td class="py-4 px-6 flex items-center gap-3">
-                                <button
-                                    class="favorite-btn inline {{ $article->is_favorite ? 'text-yellow-500' : 'text-gray-400' }} hover:text-yellow-500 transition"
-                                    data-id="{{ $article->id }}">
-                                    <i data-feather="star"></i>
-                                </button>
+                            <td class="py-4 px-6">
                                 <p>
                                     {{ $article->title }}
                                 </p>
@@ -214,7 +209,7 @@
 
                     // Fetch request untuk update status di server
                     const articleId = this.dataset.id;
-                    fetch(`penulis/articles/${articleId}/update-status`, {
+                    fetch(`{{ url('articles') }}/${articleId}/update-status`, {
                             method: 'PATCH',
                             headers: {
                                 'X-CSRF-TOKEN': '{{ csrf_token() }}',
@@ -224,6 +219,7 @@
                                 status: newStatus
                             })
                         })
+
                         .then(response => response.json())
                         .then(data => {
                             if (data.success) {

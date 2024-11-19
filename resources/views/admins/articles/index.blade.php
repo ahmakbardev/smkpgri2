@@ -4,10 +4,10 @@
     <div class="container mx-auto p-6 bg-gray-50 min-h-screen">
         <div class="flex justify-between items-center mb-6">
             <h1 class="text-3xl font-semibold text-gray-800">Manage Articles</h1>
-            <a href="{{ route('articles.create') }}"
+            {{-- <a href="{{ route('articles.create') }}"
                 class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded">
                 + Add New Article
-            </a>
+            </a> --}}
         </div>
 
         <!-- Table Card -->
@@ -25,7 +25,16 @@
                 <tbody class="text-gray-700">
                     @foreach ($articles as $article)
                         <tr class="border-b border-gray-200 hover:bg-gray-50" data-id="{{ $article->id }}">
-                            <td class="py-4 px-6">{{ $article->title }}</td>
+                            <td class="py-4 px-6 flex items-center gap-3">
+                                <button
+                                    class="favorite-btn inline {{ $article->is_favorite ? 'text-yellow-500' : 'text-gray-400' }} hover:text-yellow-500 transition"
+                                    data-id="{{ $article->id }}">
+                                    <i data-feather="star"></i>
+                                </button>
+                                <p>
+                                    {{ $article->title }}
+                                </p>
+                            </td>
                             <td class="py-4 px-6">{{ $article->category->name }}</td>
                             <td class="py-4 px-6">
                                 <select class="status-dropdown bg-white border border-gray-300 rounded"
@@ -47,19 +56,12 @@
                                 @endforeach
                             </td>
                             <td class="py-4 px-6 ">
-                                <a href="{{ route('articles.edit', $article->id) }}"
+                                {{-- <a href="{{ route('articles.edit', $article->id) }}"
                                     class="bg-yellow-400 text-white px-3 py-1 rounded hover:bg-yellow-500 mr-2">
                                     Edit
-                                </a>
+                                </a> --}}
                                 <button class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 delete-btn"
                                     data-id="{{ $article->id }}">Delete</button>
-                            </td>
-                            <td class="py-4 px-6 text-center">
-                                <button
-                                    class="favorite-btn {{ $article->is_favorite ? 'text-yellow-500' : 'text-gray-400' }} hover:text-yellow-500 transition"
-                                    data-id="{{ $article->id }}">
-                                    <i data-feather="star"></i>
-                                </button>
                             </td>
 
                         </tr>
@@ -90,12 +92,15 @@
                 button.addEventListener('click', function() {
                     const articleId = this.dataset.id;
 
-                    fetch(`/articles/${articleId}/favorite`, {
+                    fetch(`{{ url('articles') }}/${articleId}/update-status`, {
                             method: 'PATCH',
                             headers: {
                                 'X-CSRF-TOKEN': '{{ csrf_token() }}',
                                 'Content-Type': 'application/json',
                             },
+                            body: JSON.stringify({
+                                status: newStatus
+                            })
                         })
                         .then(response => response.json())
                         .then(data => {

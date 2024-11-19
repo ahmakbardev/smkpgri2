@@ -111,19 +111,18 @@ Route::middleware(['auth:admin'])->group(function () {
     Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
     Route::post('/users/create', [UserController::class, 'store'])->name('users.store');
     Route::patch('/articles/{id}/favorite', [ArticleController::class, 'toggleFavorite'])->name('articles.favorite');
-
 });
 
 Route::middleware(['auth', 'role:Penulis'])->prefix('penulis')->as('penulis.')->group(function () {
     Route::get('/dashboard', [UserController::class, 'index'])->name('dashboard');
-    
+
     Route::post('/profile/update', [UserController::class, 'update'])->name('profile.update');
-    
+
     Route::resource('articles', ArticleController::class);
     Route::post('/article/upload', [ArticleController::class, 'uploadImage'])->name('article.upload');
-    Route::patch('/articles/{id}/update-status', [ArticleController::class, 'updateStatus'])->name('articles.updateStatus');
 });
 
+Route::patch('/articles/{id}/update-status', [ArticleController::class, 'updateStatus'])->name('articles.updateStatus');
 
 Route::get('/', [IndexController::class, 'index']);
 Route::get('/detail-article/{slug}', [IndexController::class, 'show'])->name('detail-article');

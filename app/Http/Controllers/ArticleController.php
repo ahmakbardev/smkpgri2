@@ -42,7 +42,7 @@ class ArticleController extends Controller
             $articles = Article::with('category', 'tags')->get();
         }
 
-        return view('penulis.articles.index', compact('articles'));
+        return view('admins.articles.index', compact('articles'));
     }
 
     public function create()
