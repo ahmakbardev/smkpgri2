@@ -7,11 +7,11 @@
         <!-- Kepala Sekolah -->
         <div class="flex justify-center gap-6 mb-10 place-items-center">
             @foreach ($gurus->where('jabatan.nama_jabatan', 'Kepala Sekolah') as $guru)
-                <div class="bg-white rounded-lg shadow-md w-full max-w-[240px] h-full max-h-[332px] overflow-hidden animate-slideIn">
+                <div class="bg-white rounded-lg shadow-md w-full max-w-[240px] group/name max-h-[400px] h-fit overflow-hidden animate-slideIn">
                     <img src="{{ asset($guru->images) }}" alt="{{ $guru->nama }}" class="w-full h-fit object-contain">
                     <div class="p-4">
-                        <h2 class="text-lg font-bold mb-2">{{ $guru->nama }}</h2>
-                        <p class="text-gray-600">{{ $guru->jabatan->nama_jabatan }}</p>
+                        <h2 class="text-lg font-bold mb-2 truncate group-hover/name:text-wrap">{{ $guru->nama }}</h2>
+                        <p class="text-sm text-gray-600">{{ $guru->jabatan->nama_jabatan }}</p>
                     </div>
                 </div>
             @endforeach
@@ -20,11 +20,11 @@
         <!-- Wakil Kepala Sekolah -->
         <div class="flex justify-center flex-wrap gap-6 mb-10 place-items-center">
             @foreach ($gurus->where('jabatan.nama_jabatan', 'Wakil Kepala Sekolah') as $guru)
-                <div class="bg-white rounded-lg shadow-md w-full max-w-[240px] h-full max-h-[332px] overflow-hidden animate-slideIn">
+                <div class="bg-white rounded-lg shadow-md w-full max-w-[240px] group/name max-h-[400px] h-fit overflow-hidden animate-slideIn">
                     <img src="{{ asset($guru->images) }}" alt="{{ $guru->nama }}" class="w-full h-fit object-contain">
                     <div class="p-4">
-                        <h2 class="text-lg font-bold mb-2">{{ $guru->nama }}</h2>
-                        <p class="text-gray-600">{{ $guru->jabatan->nama_jabatan }}</p>
+                        <h2 class="text-lg font-bold mb-2 truncate group-hover/name:text-wrap">{{ $guru->nama }}</h2>
+                        <p class="text-sm text-gray-600">{{ $guru->jabatan->nama_jabatan }}</p>
                     </div>
                 </div>
             @endforeach
@@ -35,11 +35,11 @@
         <h2 class="text-2xl font-semibold mb-4">Guru</h2>
         <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
             @foreach ($gurus->where('jabatan.nama_jabatan', 'Guru') as $guru)
-                <div class="bg-white rounded-lg shadow-md overflow-hidden animate-slideIn">
+                <div class="bg-white rounded-lg shadow-md overflow-hidden group/name max-h-[400px] h-fit animate-slideIn">
                     <img src="{{ asset($guru->images) }}" alt="{{ $guru->nama }}" class="w-full h-fit object-contain">
                     <div class="p-4">
-                        <h2 class="text-lg font-bold mb-2">{{ $guru->nama }}</h2>
-                        <p class="text-gray-600">{{ $guru->jabatan->nama_jabatan }}</p>
+                        <h2 class="text-lg font-bold mb-2 truncate group-hover/name:text-wrap">{{ $guru->nama }}</h2>
+                        <p class="text-sm text-gray-600">{{ $guru->jabatan->nama_jabatan }}</p>
                     </div>
                 </div>
             @endforeach
