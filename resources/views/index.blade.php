@@ -97,7 +97,8 @@
 
                         <div class="flex flex-col pt-5 pb-32">
                             <h2 class="text-xl lg:text-3xl font-bold mb-4">Misi Kami</h2>
-                            <p class="text-sm lg:text-base">Untuk mencapai visi dan membentuk Karakter Profil Pelajar Pancasila, maka SMK PGRI 2 Malang
+                            <p class="text-sm lg:text-base">Untuk mencapai visi dan membentuk Karakter Profil Pelajar
+                                Pancasila, maka SMK PGRI 2 Malang
                                 menetapkan misi sebagai berikut.</p>
                         </div>
                         <div class="carousel-mission flex flex-col items-center transition-transform duration-700 ease-in-out"
@@ -195,8 +196,8 @@
                     <ul class="space-y-4">
                         @foreach ($authors as $author)
                             <li class="flex items-center">
-                                <img src="{{ asset('storage/' . $author->profile_picture) }}" alt="{{ $author->name }}"
-                                    class="w-10 h-10 rounded-full mr-3">
+                                <img src="{{ $author->profile_picture ? asset('storage/' . $author->profile_picture) : asset('assets/images/avatar/avatar-1.jpg') }}"
+                                    alt="{{ $author->name }}" class="w-10 h-10 rounded-full mr-3">
                                 <div>
                                     <h3 class="text-lg font-semibold">{{ $author->name }}</h3>
                                     <p class="text-gray-500 text-sm">{{ $author->bio }}</p>
