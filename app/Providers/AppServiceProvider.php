@@ -8,6 +8,7 @@ use App\Models\Bidang;
 use App\Models\FasilitasBidang;
 use App\Models\ListFacility;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -32,6 +33,13 @@ class AppServiceProvider extends ServiceProvider
 
         View::composer('*', function ($view) {
             $view->with('user', Auth::user());
+        });
+
+        // Helper global untuk membuat slug
+        app()->singleton('slugify', function () {
+            return function ($title) {
+                return Str::slug($title, '-');
+            };
         });
     }
 }

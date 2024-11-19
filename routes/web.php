@@ -123,7 +123,7 @@ Route::middleware(['auth', 'role:Penulis'])->prefix('penulis')->as('penulis.')->
 
 
 Route::get('/', [IndexController::class, 'index']);
-Route::get('/detail-article/{id}', [IndexController::class, 'show'])->name('detail-article');
+Route::get('/detail-article/{slug}', [IndexController::class, 'show'])->name('detail-article');
 Route::get('/articles/category/{categoryId}', [IndexController::class, 'filterByCategory'])->name('articles.filter');
 
 Route::post('/article/{id}/comment', [CommentController::class, 'store'])->name('article.comment');

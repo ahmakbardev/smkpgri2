@@ -53,13 +53,18 @@ class IndexController extends Controller
 
 
 
-    public function show($id)
+    public function show($slug)
     {
-        // Ambil artikel berdasarkan ID, termasuk kategori, tag, dan penulis
-        $article = Article::with('category', 'tags', 'author')->findOrFail($id);
+        // Ambil artikel berdasarkan slug dari title
+        $article = Article::with('category', 'tags', 'author')
+            ->where('title', str_replace('-', ' ', $slug))
+            ->firstOrFail();
 
-        // Ambil 3 artikel terbaru lainnya untuk bagian "Latest Update"
-        $latestArticles = Article::latest()->where('id', '!=', $id)->take(3)->get();
+        // Ambil artikel terbaru lainnya
+        $latestArticles = Article::latest()
+            ->where('id', '!=', $article->id)
+            ->take(3)
+            ->get();
 
         return view('articles.detail', compact('article', 'latestArticles'));
     }

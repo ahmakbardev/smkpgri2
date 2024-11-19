@@ -22,7 +22,8 @@
                 <ul>
                     @foreach ($latestArticles as $latest)
                         <li class="mb-3">
-                            <a href="{{ route('detail-article', $latest->id) }}" class="text-blue-500 hover:underline">
+                            <a href="{{ route('detail-article', app('slugify')($latest->title)) }}"
+                                class="text-blue-500 hover:underline">
                                 {{ $latest->title }}
                             </a>
                         </li>
