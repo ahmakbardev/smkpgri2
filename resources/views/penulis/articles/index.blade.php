@@ -77,38 +77,7 @@
             </div>
         </div>
     </div>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const favoriteButtons = document.querySelectorAll('.favorite-btn');
-
-            favoriteButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    const articleId = this.dataset.id;
-
-                    fetch(`/articles/${articleId}/favorite`, {
-                            method: 'PATCH',
-                            headers: {
-                                'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                                'Content-Type': 'application/json',
-                            },
-                        })
-                        .then(response => response.json())
-                        .then(data => {
-                            if (data.success) {
-                                this.classList.toggle('text-yellow-500');
-                                this.classList.toggle('text-gray-400');
-                                alert(data.message);
-                            } else {
-                                alert(data.message);
-                            }
-                        })
-                        .catch(error => {
-                            console.error('Error:', error);
-                        });
-                });
-            });
-        });
-    </script>
+   
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
