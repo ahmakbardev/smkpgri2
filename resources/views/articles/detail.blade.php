@@ -108,19 +108,23 @@
                     // Ordered Lists
                     $content = preg_replace(
                         '/<ol>(.*?)<\/ol>/s',
-                        '<ol class="list-decimal list-inside text-sm lg:text-base leading-relaxed text-gray-700 my-4">$1</ol>',
+                        '<ol style="list-style-type: decimal; padding-left: 1.5rem; margin: 1rem 0; font-size: 1rem; line-height: 1.5; color: #374151;">$1</ol>',
                         $content,
                     );
 
                     // Unordered Lists
                     $content = preg_replace(
                         '/<ul>(.*?)<\/ul>/s',
-                        '<ul class="list-disc list-inside text-sm lg:text-base leading-relaxed text-gray-700 my-4">$1</ul>',
+                        '<ul style="list-style-type: disc; padding-left: 1.5rem; margin: 1rem 0; font-size: 1rem; line-height: 1.5; color: #374151;">$1</ul>',
                         $content,
                     );
 
                     // List Items
-                    $content = preg_replace('/<li>(.*?)<\/li>/', '<li class="ml-4">$1</li>', $content);
+                    $content = preg_replace(
+                        '/<li>(.*?)<\/li>/',
+                        '<li style="margin-bottom: 0.5rem;">$1</li>',
+                        $content,
+                    );
                 @endphp
 
                 {!! $content !!}
