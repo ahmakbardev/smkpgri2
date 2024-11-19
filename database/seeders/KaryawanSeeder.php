@@ -6,7 +6,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class JabatanSeeder extends Seeder
+class KaryawanSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,9 +15,7 @@ class JabatanSeeder extends Seeder
     {
         \App\Models\Admin::firstOrCreate(
         $jabatan = [
-            ['nama_jabatan' => 'Kepala Sekolah'],
-            ['nama_jabatan' => 'Wakil Kepala Sekolah'],
-            ['nama_jabatan' => 'Guru'],
+            ['nama_jabatan' => 'Karyawan'],
         ]);
 
         DB::table('jabatan')->insert($jabatan);
