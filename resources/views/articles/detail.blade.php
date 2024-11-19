@@ -101,6 +101,9 @@
                         '<div class="my-6"><img $1 $3 class="w-full h-auto rounded-lg shadow"><p class="text-sm text-center text-gray-500 mt-2">$2</p></div>',
                         $content,
                     );
+
+                    // Figures
+                    $content = preg_replace('/<figure(.*?)>/', '<figure class="mx-auto"$1>', $content);
                 @endphp
 
                 {!! $content !!}
