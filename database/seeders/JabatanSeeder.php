@@ -13,7 +13,7 @@ class JabatanSeeder extends Seeder
      */
     public function run(): void
     {
-        \App\Models\Admin::firstOrCreate(
+        \App\Models\Jabatan::firstOrCreate(
         $jabatan = [
             ['nama_jabatan' => 'Kepala Sekolah'],
             ['nama_jabatan' => 'Wakil Kepala Sekolah'],

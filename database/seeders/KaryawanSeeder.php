@@ -13,7 +13,7 @@ class KaryawanSeeder extends Seeder
      */
     public function run(): void
     {
-        \App\Models\Admin::firstOrCreate(
+        \App\Models\Jabatan::firstOrCreate(
         $jabatan = [
             ['nama_jabatan' => 'Karyawan'],
         ]);
