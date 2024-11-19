@@ -1198,6 +1198,9 @@ video {
 .whitespace-nowrap {
   white-space: nowrap;
 }
+.text-wrap {
+  text-wrap: wrap;
+}
 .text-nowrap {
   text-wrap: nowrap;
 }

@@ -10,7 +10,7 @@
                 <div class="bg-white rounded-lg shadow-md w-full max-w-[240px] group/name1 max-h-[400px] h-fit overflow-hidden animate-slideIn">
                     <img src="{{ asset($guru->images) }}" alt="{{ $guru->nama }}" class="w-full h-fit object-contain">
                     <div class="p-4">
-                        <h2 class="text-lg font-bold mb-2 truncate group-hover/name1:text-wrap">{{ $guru->nama }}</h2>
+                        <h2 class="text-base font-bold mb-2 text-wrap">{{ $guru->nama }}</h2>
                         <p class="text-sm text-gray-600">{{ $guru->jabatan->nama_jabatan }}</p>
                     </div>
                 </div>
@@ -23,7 +23,7 @@
                 <div class="bg-white rounded-lg shadow-md w-full max-w-[240px] group/name2 max-h-[400px] h-fit overflow-hidden animate-slideIn">
                     <img src="{{ asset($guru->images) }}" alt="{{ $guru->nama }}" class="w-full h-fit object-contain">
                     <div class="p-4">
-                        <h2 class="text-lg font-bold mb-2 truncate group-hover/name2:text-wrap">{{ $guru->nama }}</h2>
+                        <h2 class="text-base font-bold mb-2 text-wrap">{{ $guru->nama }}</h2>
                         <p class="text-sm text-gray-600">{{ $guru->jabatan->nama_jabatan }}</p>
                     </div>
                 </div>
@@ -38,7 +38,7 @@
                 <div class="bg-white rounded-lg shadow-md overflow-hidden group/name3 max-h-[400px] h-fit animate-slideIn">
                     <img src="{{ asset($guru->images) }}" alt="{{ $guru->nama }}" class="w-full h-fit object-contain">
                     <div class="p-4">
-                        <h2 class="text-lg font-bold mb-2 truncate group-hover/name3:text-wrap">{{ $guru->nama }}</h2>
+                        <h2 class="text-base font-bold mb-2 text-wrap">{{ $guru->nama }}</h2>
                         <p class="text-sm text-gray-600">{{ $guru->jabatan->nama_jabatan }}</p>
                     </div>
                 </div>
