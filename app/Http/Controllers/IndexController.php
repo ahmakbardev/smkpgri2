@@ -14,29 +14,34 @@ class IndexController extends Controller
 {
     public function index()
     {
-        // Ambil artikel terbaru, kategori, dan penulis
+        // Artikel untuk bagian utama
         $articles = Article::with('category', 'tags', 'author')
+            ->orderByDesc('is_favorite') // Prioritaskan artikel yang di-favoritkan
             ->latest()
-            ->take(18) // Batasi 12 artikel untuk ditampilkan di awal
+            ->take(18)
             ->get();
 
-        $carouselArticles = Article::with('author') // Tambahkan query untuk carousel
+        // Artikel untuk carousel
+        $carouselArticles = Article::with('author')
+            ->orderByDesc('is_favorite') // Prioritaskan artikel yang di-favoritkan
             ->latest()
             ->take(3)
             ->get();
 
+        // Ambil semua kategori
         $categories = CategoryArticle::all();
 
         // Ambil pengguna dengan role "Penulis"
         $authors = User::where('role', 'Penulis')->latest()->take(5)->get();
 
-        $schoolProfile = SchoolProfile::first(); // Ambil profil sekolah pertama (hanya ada satu data)
-
-        $visi = $schoolProfile->visi; // Ambil visi
-        $misi = json_decode($schoolProfile->misi); // Decode misi JSON menjadi array
+        // Ambil profil sekolah
+        $schoolProfile = SchoolProfile::first();
+        $visi = $schoolProfile->visi;
+        $misi = json_decode($schoolProfile->misi);
 
         return view('index', compact('articles', 'carouselArticles', 'categories', 'authors', 'visi', 'misi'));
     }
+
 
     public function filterByCategory($categoryId)
     {

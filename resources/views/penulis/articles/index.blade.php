@@ -25,7 +25,16 @@
                 <tbody class="text-gray-700">
                     @foreach ($articles as $article)
                         <tr class="border-b border-gray-200 hover:bg-gray-50" data-id="{{ $article->id }}">
-                            <td class="py-4 px-6">{{ $article->title }}</td>
+                            <td class="py-4 px-6 flex items-center gap-3">
+                                <button
+                                    class="favorite-btn inline {{ $article->is_favorite ? 'text-yellow-500' : 'text-gray-400' }} hover:text-yellow-500 transition"
+                                    data-id="{{ $article->id }}">
+                                    <i data-feather="star"></i>
+                                </button>
+                                <p>
+                                    {{ $article->title }}
+                                </p>
+                            </td>
                             <td class="py-4 px-6">{{ $article->category->name }}</td>
                             <td class="py-4 px-6">
                                 <select class="status-dropdown bg-white border border-gray-300 rounded"
@@ -73,6 +82,38 @@
             </div>
         </div>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const favoriteButtons = document.querySelectorAll('.favorite-btn');
+
+            favoriteButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const articleId = this.dataset.id;
+
+                    fetch(`/articles/${articleId}/favorite`, {
+                            method: 'PATCH',
+                            headers: {
+                                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                                'Content-Type': 'application/json',
+                            },
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                this.classList.toggle('text-yellow-500');
+                                this.classList.toggle('text-gray-400');
+                                alert(data.message);
+                            } else {
+                                alert(data.message);
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                        });
+                });
+            });
+        });
+    </script>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {

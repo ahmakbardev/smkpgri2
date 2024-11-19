@@ -7,14 +7,25 @@
             <div class="slides flex transition-transform h-full duration-700 ease-in-out" id="carouselSlides">
                 @foreach ($carouselArticles as $index => $article)
                     <div class="w-full h-full flex items-end justify-start relative flex-shrink-0 group">
+                        <!-- Artikel Gambar -->
                         <img src="{{ asset($article->images) }}"
                             class="w-full h-full object-cover absolute top-0 left-0 transition-transform duration-700 ease-in-out transform scale-100"
                             alt="{{ $article->title }}">
+
+                        <!-- Tanda Berita Favorite -->
+                        @if ($article->is_favorite)
+                            <div
+                                class="absolute top-4 left-4 bg-yellow-500 text-white flex items-center text-lg gap-3 font-semibold py-1 px-5 rounded-full shadow-lg z-[5]">
+                                <i data-feather="star" class="inline w-5 object-contain"></i> Berita Favorit!
+                            </div>
+                        @endif
+
+                        <!-- Artikel Konten -->
                         <div class="text-left py-5 w-full max-w-[70%] relative bottom-10 left-4 border-t ml-5 transition-all duration-1000 z-[4] ease-in-out opacity-0 blur-sm text-white transform translate-y-[7.5rem] scale-75 group-hover:translate-y-0 group-hover:opacity-100"
                             id="headline{{ $index + 1 }}">
                             <h1 class="text-3xl lg:text-5xl font-bold mb-4">{{ $article->title }}</h1>
                             <p class="text-sm lg:text-lg mb-4">{{ Str::limit($article->description, 100) }}</p>
-                            <a href="{{ route('detail-article', $article->id) }}" {{-- <a href="{{ route('detail-article') }}" --}}
+                            <a href="{{ route('detail-article', $article->id) }}"
                                 class="hover:bg-white text-sm lg:text-base hover:text-black py-2 px-4 border rounded opacity-0 translate-y-full transition-all duration-500 ease-in-out group-hover:translate-y-0 group-hover:opacity-100">
                                 Read More
                             </a>
@@ -22,6 +33,7 @@
                     </div>
                 @endforeach
             </div>
+
 
             <!-- Indicator Bar -->
             <div class="absolute bottom-5 right-5 transform flex space-x-2 z-[3]">

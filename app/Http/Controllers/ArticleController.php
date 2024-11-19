@@ -28,6 +28,22 @@ class ArticleController extends Controller
 
         return view('penulis.articles.index', compact('articles'));
     }
+    public function adminIndex()
+    {
+        $user = Auth::user(); // Ambil data pengguna yang sedang login
+
+        if ($user->role === 'Penulis') {
+            // Tampilkan hanya artikel milik penulis yang sedang login
+            $articles = Article::with('category', 'tags')
+                ->where('user_id', $user->id)
+                ->get();
+        } else {
+            // Tampilkan semua artikel jika bukan Penulis
+            $articles = Article::with('category', 'tags')->get();
+        }
+
+        return view('penulis.articles.index', compact('articles'));
+    }
 
     public function create()
     {
@@ -156,7 +172,7 @@ class ArticleController extends Controller
             'removed_tags' => 'nullable|string', // Tag yang akan dihapus
             'html_lang' => 'nullable|string',
             'description' => 'nullable|string',
-            'images' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', 
+            'images' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'alt' => 'nullable|string',
         ]);
 
@@ -250,6 +266,30 @@ class ArticleController extends Controller
         return response()->json([
             'success' => true,
             'message' => 'Article deleted successfully!',
+        ]);
+    }
+
+    public function toggleFavorite($id)
+    {
+        $article = Article::findOrFail($id);
+
+        // Cek jumlah artikel yang sudah menjadi favorit
+        $favoriteCount = Article::where('is_favorite', true)->count();
+
+        if (!$article->is_favorite && $favoriteCount >= 3) {
+            return response()->json([
+                'success' => false,
+                'message' => 'You can only highlight up to 3 articles.',
+            ], 400);
+        }
+
+        // Toggle favorite status
+        $article->is_favorite = !$article->is_favorite;
+        $article->save();
+
+        return response()->json([
+            'success' => true,
+            'message' => $article->is_favorite ? 'Article added to favorites.' : 'Article removed from favorites.',
         ]);
     }
 }

@@ -54,6 +54,14 @@
                                 <button class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 delete-btn"
                                     data-id="{{ $article->id }}">Delete</button>
                             </td>
+                            <td class="py-4 px-6 text-center">
+                                <button
+                                    class="favorite-btn {{ $article->is_favorite ? 'text-yellow-500' : 'text-gray-400' }} hover:text-yellow-500 transition"
+                                    data-id="{{ $article->id }}">
+                                    <i data-feather="star"></i>
+                                </button>
+                            </td>
+
                         </tr>
                     @endforeach
                 </tbody>
@@ -73,6 +81,39 @@
             </div>
         </div>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const favoriteButtons = document.querySelectorAll('.favorite-btn');
+
+            favoriteButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const articleId = this.dataset.id;
+
+                    fetch(`/articles/${articleId}/favorite`, {
+                            method: 'PATCH',
+                            headers: {
+                                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                                'Content-Type': 'application/json',
+                            },
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                this.classList.toggle('text-yellow-500');
+                                this.classList.toggle('text-gray-400');
+                                alert(data.message);
+                            } else {
+                                alert(data.message);
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                        });
+                });
+            });
+        });
+    </script>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -149,7 +190,7 @@
             // Fungsi untuk mengubah warna berdasarkan status
             function updateDropdownColor(dropdown, status) {
                 dropdown.classList.remove('text-gray-500', 'text-green-500',
-                'text-red-500'); // Hapus class warna sebelumnya
+                    'text-red-500'); // Hapus class warna sebelumnya
 
                 if (status === 'draft') {
                     dropdown.classList.add('text-gray-500');
