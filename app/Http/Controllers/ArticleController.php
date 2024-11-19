@@ -156,7 +156,7 @@ class ArticleController extends Controller
             'removed_tags' => 'nullable|string', // Tag yang akan dihapus
             'html_lang' => 'nullable|string',
             'description' => 'nullable|string',
-            'images' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'images' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', 
             'alt' => 'nullable|string',
         ]);
 

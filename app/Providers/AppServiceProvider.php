@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\View;
 use App\Models\Bidang;
 use App\Models\FasilitasBidang;
 use App\Models\ListFacility;
+use Illuminate\Support\Facades\Auth;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -28,5 +29,9 @@ class AppServiceProvider extends ServiceProvider
         View::share('bidangs', Bidang::all());
         // Share all FasilitasBidang with their related facilities to all views
         View::share('fasilitasBidangs', FasilitasBidang::all());
+
+        View::composer('*', function ($view) {
+            $view->with('user', Auth::user());
+        });
     }
 }

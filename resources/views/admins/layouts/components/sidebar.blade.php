@@ -38,6 +38,11 @@
                     </ul>
                 </div>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('users.create') }}">
+                    <i data-feather="user-plus" class="w-4 h-4 mr-2"></i> Tambah User
+                </a>
+            </li>
 
             {{-- <!-- Konsentrasi Section -->
             <li class="nav-item">
