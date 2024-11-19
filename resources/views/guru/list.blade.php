@@ -35,7 +35,7 @@
 
         <!-- Guru -->
         <h2 class="text-2xl font-semibold mb-4">Guru</h2>
-        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+        <div class="grid grid-cols-2 px-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
             @foreach ($gurus->where('jabatan.nama_jabatan', 'Guru') as $guru)
                 <div class="bg-white rounded-lg shadow-md overflow-hidden group/name3 max-h-[400px] h-fit animate-slideIn">
                     <img src="{{ asset($guru->images) }}" alt="{{ $guru->nama }}" class="w-full h-fit object-contain">
@@ -48,7 +48,7 @@
         </div>
         <!-- Karyawan -->
         <h2 class="text-2xl font-semibold my-6">Karyawan</h2>
-        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+        <div class="grid grid-cols-2 px-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
             @foreach ($gurus->where('jabatan.nama_jabatan', 'Karyawan') as $guru)
                 <div class="bg-white rounded-lg shadow-md overflow-hidden group/name4 max-h-[400px] h-fit animate-slideIn">
                     <img src="{{ asset($guru->images) }}" alt="{{ $guru->nama }}" class="w-full h-fit object-contain">
