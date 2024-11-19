@@ -104,6 +104,23 @@
 
                     // Figures
                     $content = preg_replace('/<figure(.*?)>/', '<figure class="mx-auto"$1>', $content);
+
+                    // Ordered Lists
+                    $content = preg_replace(
+                        '/<ol>(.*?)<\/ol>/s',
+                        '<ol class="list-decimal list-inside text-sm lg:text-base leading-relaxed text-gray-700 my-4">$1</ol>',
+                        $content,
+                    );
+
+                    // Unordered Lists
+                    $content = preg_replace(
+                        '/<ul>(.*?)<\/ul>/s',
+                        '<ul class="list-disc list-inside text-sm lg:text-base leading-relaxed text-gray-700 my-4">$1</ul>',
+                        $content,
+                    );
+
+                    // List Items
+                    $content = preg_replace('/<li>(.*?)<\/li>/', '<li class="ml-4">$1</li>', $content);
                 @endphp
 
                 {!! $content !!}
