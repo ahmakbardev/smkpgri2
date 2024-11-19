@@ -46,7 +46,7 @@
                                     </span>
                                 @endforeach
                             </td>
-                            <td class="py-4 px-6">
+                            <td class="py-4 px-6 ">
                                 <a href="{{ route('articles.edit', $article->id) }}"
                                     class="bg-yellow-400 text-white px-3 py-1 rounded hover:bg-yellow-500 mr-2">
                                     Edit

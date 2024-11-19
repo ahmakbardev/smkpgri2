@@ -157,20 +157,48 @@
         <!-- Right Sidebar -->
         <aside class="md:col-span-3 hidden md:block sticky top-28 h-fit">
             <!-- Share Now Section -->
+            <!-- Copy Link Section -->
             <div class="bg-white p-4 rounded-lg shadow-md">
-                <h2 class="font-semibold text-lg mb-4">Share Now</h2>
-                <div class="flex space-x-3">
-                    <a href="#" class="text-blue-500 hover:text-blue-700 transition">
-                        <i data-feather="linkedin" class="w-5 h-5"></i>
-                    </a>
-                    <a href="#" class="text-blue-500 hover:text-blue-700 transition">
-                        <i data-feather="twitter" class="w-5 h-5"></i>
-                    </a>
-                    <a href="#" class="text-blue-500 hover:text-blue-700 transition">
-                        <i data-feather="facebook" class="w-5 h-5"></i>
-                    </a>
+                <h2 class="font-semibold text-lg mb-4">Copy Link</h2>
+                <div class="relative">
+                    <div class="border rounded-md items-center flex py-1 px-2">
+                        <!-- URL Display -->
+                        <p id="urlDisplay" class="w-full text-xs text-gray-500 truncate">{{ url()->current() }}</p>
+                        <!-- Copy Button -->
+                        <button id="copyLinkButton"
+                            class="text-xs w-fit bg-blue-500 text-white px-4 py-2 rounded-lg shadow-md hover:bg-blue-600 transition">
+                            Copy
+                        </button>
+                    </div>
+                    <!-- Tooltip -->
+                    <div id="tooltipCopied"
+                        class="absolute top-12 left-0 bg-gray-700 text-white text-xs py-1 px-2 rounded-lg opacity-0 transition-opacity duration-300">
+                        Link telah dicopy!
+                    </div>
                 </div>
             </div>
+
+            <script>
+                document.addEventListener("DOMContentLoaded", function() {
+                    const copyButton = document.getElementById("copyLinkButton");
+                    const tooltip = document.getElementById("tooltipCopied");
+                    const urlDisplay = document.getElementById("urlDisplay");
+
+                    copyButton.addEventListener("click", () => {
+                        const url = urlDisplay.textContent; // Get URL from the displayed element
+                        navigator.clipboard.writeText(url).then(() => {
+                            tooltip.style.opacity = "1"; // Show tooltip
+                            setTimeout(() => {
+                                tooltip.style.opacity = "0"; // Hide tooltip after 2 seconds
+                            }, 2000);
+                        }).catch(err => {
+                            console.error("Failed to copy text: ", err);
+                        });
+                    });
+                });
+            </script>
+
+
 
             <script>
                 document.addEventListener("DOMContentLoaded", function() {
