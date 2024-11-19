@@ -25,7 +25,7 @@
                     <div class="w-10 h-10 relative">
                         <img alt="avatar"
                             src="{{ $user->profile_picture ? asset('storage/' . $user->profile_picture) : asset('assets/images/avatar/avatar-1.jpg') }}"
-                            class="rounded-full" />
+                            class="rounded-full object-cover object-center" />
                         <div
                             class="absolute border-gray-200 border-2 rounded-full right-0 bottom-0 bg-green-600 h-3 w-3">
                         </div>

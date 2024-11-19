@@ -45,7 +45,7 @@
             <label for="profile_picture" class="block text-gray-700 font-bold mb-2">Foto Profil</label>
             <input type="file" id="profile_picture" name="profile_picture" class="w-full p-2 border rounded-lg">
             @if ($user->profile_picture)
-                <img src="{{ asset('storage/' . $user->profile_picture) }}" alt="Profile Picture" class="mt-2 w-20 h-20 rounded-full">
+                <img src="{{ asset('storage/' . $user->profile_picture) }}" alt="Profile Picture" class="mt-2 w-20 h-20 object-cover object-center rounded-full">
             @endif
             @error('profile_picture')
                 <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
