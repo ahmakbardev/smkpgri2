@@ -1,7 +1,7 @@
 @extends('layouts.layout')
 
 @section('content')
-    <div class="container mx-auto py-8">
+    <div class="container mx-auto py-8 w-screen relative overflow-hidden">
         <h1 class="text-3xl font-bold text-center mb-8">Daftar Guru</h1>
 
         <!-- Kepala Sekolah -->

@@ -944,6 +944,9 @@ video {
   width: -moz-fit-content;
   width: fit-content;
 }
+.w-screen {
+  width: 100vw;
+}
 .min-w-\[100vw\] {
   min-width: 100vw;
 }
