@@ -195,7 +195,7 @@
                     <ul class="space-y-4">
                         @foreach ($authors as $author)
                             <li class="flex items-center">
-                                <img src="{{ asset($author->avatar) }}" alt="{{ $author->name }}"
+                                <img src="{{ asset('storage/' . $author->profile_picture) }}" alt="{{ $author->name }}"
                                     class="w-10 h-10 rounded-full mr-3">
                                 <div>
                                     <h3 class="text-lg font-semibold">{{ $author->name }}</h3>

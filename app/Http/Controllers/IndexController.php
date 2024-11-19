@@ -28,7 +28,7 @@ class IndexController extends Controller
         $categories = CategoryArticle::all();
 
         // Ambil pengguna dengan role "Penulis"
-        $authors = User::where('role', 'Penulis')->get();
+        $authors = User::where('role', 'Penulis')->latest()->take(5)->get();
 
         $schoolProfile = SchoolProfile::first(); // Ambil profil sekolah pertama (hanya ada satu data)
 
