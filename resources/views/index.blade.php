@@ -25,7 +25,7 @@
                             id="headline{{ $index + 1 }}">
                             <h1 class="text-3xl lg:text-5xl font-bold mb-4">{{ $article->title }}</h1>
                             <p class="text-sm lg:text-lg mb-4">{{ Str::limit($article->description, 100) }}</p>
-                            <a href="{{ route('detail-article', $article->id) }}"
+                            <a href="{{ route('detail-article', app('slugify')($article->title)) }}"
                                 class="hover:bg-white text-sm lg:text-base hover:text-black py-2 px-4 border rounded opacity-0 translate-y-full transition-all duration-500 ease-in-out group-hover:translate-y-0 group-hover:opacity-100">
                                 Read More
                             </a>
