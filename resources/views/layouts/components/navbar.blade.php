@@ -22,7 +22,7 @@
                     {{-- <a href="#" class="block px-4 py-2 hover:bg-gray-100">Profil Sekolah</a> --}}
                     {{-- <a href="#" class="block px-4 py-2 hover:bg-gray-100">Prestasi</a> --}}
                     {{-- <a href="#" class="block px-4 py-2 hover:bg-gray-100">Sejarah</a> --}}
-                    <a href="#mission" class="block px-4 py-2 hover:bg-gray-100">Visi Misi</a>
+                    {{-- <a href="#mission" class="block px-4 py-2 hover:bg-gray-100">Visi Misi</a> --}}
                     <a href="{{ route('guru.list') }}" class="block px-4 py-2 hover:bg-gray-100">Guru</a>
                 </div>
             </div>
@@ -38,8 +38,8 @@
             <button id="fasilitasBtn" class="relative flex items-center">Fasilitas
                 <i data-feather="chevron-down" class="ml-2 w-4 transition-transform"></i> --}}
             </button>
-            <a href="#" class="">Berita</a>
-            <a href="#" class="">PPDB</a>
+            {{-- <a href="#" class="">Berita</a> --}}
+            <a href="https://ppdb.smkpgri2malang.sch.id/" class="">PPDB</a>
         </div>
 
         <!-- Desktop Authentication Links -->
