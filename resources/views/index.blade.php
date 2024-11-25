@@ -336,7 +336,7 @@
 
 
 
-    < <!-- Script for Carousel Functionality -->
+    <!-- Script for Carousel Functionality -->
         <script>
             document.addEventListener("DOMContentLoaded", function() {
                 const missionCarousel = document.getElementById("missionCarousel");
