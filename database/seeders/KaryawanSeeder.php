@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -13,11 +12,15 @@ class KaryawanSeeder extends Seeder
      */
     public function run(): void
     {
-        \App\Models\Jabatan::firstOrCreate(
         $jabatan = [
-            ['nama_jabatan' => 'Karyawan'],
-        ]);
+            ['nama_jabatan' => 'Karyawan', 'created_at' => now(), 'updated_at' => now()],
+        ];
 
-        DB::table('jabatan')->insert($jabatan);
+        foreach ($jabatan as $data) {
+            \App\Models\Jabatan::firstOrCreate(
+                ['nama_jabatan' => $data['nama_jabatan']], // Kondisi pencarian
+                $data // Data yang akan di-insert jika tidak ditemukan
+            );
+        }
     }
 }

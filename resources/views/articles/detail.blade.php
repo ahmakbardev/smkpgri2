@@ -156,7 +156,7 @@
 
         <!-- Right Sidebar -->
         <!-- Right Sidebar -->
-        <aside class="md:col-span-3 hidden md:block sticky top-28 h-fit">
+        <aside class="md:col-span-3 block sticky top-28 h-fit">
             <!-- Share Now Section -->
             <!-- Copy Link Section -->
             <div class="bg-white p-4 rounded-lg shadow-md">

@@ -2,9 +2,7 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 
 class JabatanSeeder extends Seeder
 {
@@ -13,13 +11,17 @@ class JabatanSeeder extends Seeder
      */
     public function run(): void
     {
-        \App\Models\Jabatan::firstOrCreate(
         $jabatan = [
-            ['nama_jabatan' => 'Kepala Sekolah'],
-            ['nama_jabatan' => 'Wakil Kepala Sekolah'],
-            ['nama_jabatan' => 'Guru'],
-        ]);
+            ['nama_jabatan' => 'Kepala Sekolah', 'created_at' => now(), 'updated_at' => now()],
+            ['nama_jabatan' => 'Wakil Kepala Sekolah', 'created_at' => now(), 'updated_at' => now()],
+            ['nama_jabatan' => 'Guru', 'created_at' => now(), 'updated_at' => now()],
+        ];
 
-        DB::table('jabatan')->insert($jabatan);
+        foreach ($jabatan as $data) {
+            \App\Models\Jabatan::firstOrCreate(
+                ['nama_jabatan' => $data['nama_jabatan']], // Kondisi pencarian
+                $data // Data untuk di-insert jika tidak ditemukan
+            );
+        }
     }
 }

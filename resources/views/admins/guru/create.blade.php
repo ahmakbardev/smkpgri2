@@ -29,6 +29,42 @@
                         </select>
                     </div>
 
+                    <div class="mb-4">
+                        <label for="sub_jabatan" class="block text-sm font-medium text-gray-700">Sub Jabatan</label>
+                        <select id="sub_jabatan" name="sub_jabatan"
+                            class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                            <option value="" disabled selected>Pilih Sub Jabatan</option>
+                        </select>
+                    </div>
+
+                    <script>
+                        document.addEventListener('DOMContentLoaded', () => {
+                            const jabatanSelect = document.getElementById('jabatan_id');
+                            const subJabatanSelect = document.getElementById('sub_jabatan');
+
+                            const subJabatanOptions = {
+                                'Wakil Kepala Sekolah': ['Sarana Prasarana', 'Kurikulum', 'Kesiswaan'],
+                                'Kepala Bidang': ['Bismen', 'TI']
+                            };
+
+                            jabatanSelect.addEventListener('change', (event) => {
+                                const selectedJabatan = event.target.options[event.target.selectedIndex].text;
+
+                                subJabatanSelect.innerHTML =
+                                '<option value="" disabled selected>Pilih Sub Jabatan</option>';
+                                if (subJabatanOptions[selectedJabatan]) {
+                                    subJabatanOptions[selectedJabatan].forEach(option => {
+                                        const opt = document.createElement('option');
+                                        opt.value = option;
+                                        opt.textContent = option;
+                                        subJabatanSelect.appendChild(opt);
+                                    });
+                                }
+                            });
+                        });
+                    </script>
+
+
                     <!-- Foto Guru -->
                     <div class="mb-4">
                         <label for="images" class="block text-sm font-medium text-gray-700">Foto</label>

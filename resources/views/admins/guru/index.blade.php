@@ -10,7 +10,9 @@
                     <th class="px-4 py-2">No</th>
                     <th class="px-4 py-2">Nama</th>
                     <th class="px-4 py-2">Jabatan</th>
-                    <th class="px-4 py-2">Foto</th <th class="px-4 py-2">Aksi</th>
+                    <th class="px-4 py-2">Sub Jabatan</th>
+                    <th class="px-4 py-2">Foto</th>
+                    <th class="px-4 py-2">Aksi</th>
                 </tr>
             </thead>
             <tbody>
@@ -19,6 +21,13 @@
                         <td class="border px-4 py-2">{{ $key + 1 }}</td>
                         <td class="border px-4 py-2">{{ $g->nama }}</td>
                         <td class="border px-4 py-2">{{ $g->jabatan->nama_jabatan }}</td>
+                        <td class="border px-4 py-2">
+                            @if ($g->sub_jabatan)
+                                {{ $g->sub_jabatan }}
+                            @else
+                                <span class="text-gray-500">-</span>
+                            @endif
+                        </td>
                         <td class="border px-4 py-2">
                             @if ($g->images)
                                 <img src="{{ asset($g->images) }}" alt="Foto Guru" class="w-16 h-16 rounded-full mx-auto">
