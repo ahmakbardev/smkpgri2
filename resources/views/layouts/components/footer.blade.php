@@ -17,7 +17,7 @@
             <div>
                 <h4 class="text-lg font-semibold">Contact Us</h4>
                 <p class="mt-2 ">Email: smkpgri2kotamalang@gmail.com</p>
-                <p class="">Phone: +123 456 7890</p>
+                <p class="">Phone: +62 882-3053-4873</p>
             </div>
         </div>
         <div class="mt-6 text-center ">
