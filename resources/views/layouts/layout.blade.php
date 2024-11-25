@@ -10,6 +10,7 @@
     <meta name="description" content="@yield('meta_description', 'Website resmi SMK PGRI 2 Malang')">
     <meta name="keywords" content="@yield('meta_keywords', 'SMK, Pendidikan, Sekolah, Malang')">
     <meta name="author" content="@yield('meta_author', 'SMK PGRI 2 Malang')">
+    <link rel="canonical" href="@yield('canonical_url', url()->current())">
 
     <link rel="shortcut icon" href="{{ asset('assets/images/logo/logo.webp') }}" type="image/x-icon">
 
