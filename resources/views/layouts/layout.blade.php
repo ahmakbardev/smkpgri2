@@ -5,7 +5,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>SMK PGRI 2 Malang</title>
+    <!-- Dynamic Meta Info -->
+    <title>@yield('meta_title', 'SMK PGRI 2 Malang')</title>
+    <meta name="description" content="@yield('meta_description', 'Website resmi SMK PGRI 2 Malang')">
+    <meta name="keywords" content="@yield('meta_keywords', 'SMK, Pendidikan, Sekolah, Malang')">
+    <meta name="author" content="@yield('meta_author', 'SMK PGRI 2 Malang')">
 
     <link rel="shortcut icon" href="{{ asset('assets/images/logo/logo.webp') }}" type="image/x-icon">
 
@@ -14,9 +18,8 @@
     <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
 
     <!-- Append version number to CSS file name -->
-    <link rel="stylesheet" href="{{ asset('css/app.css?v=1.03') }}">
-    <!-- Add cache-control headers for CSS and JavaScript files -->
-    <link rel="preload" href="{{ asset('css/app.css?v=1.03') }}" as="style" crossorigin="anonymous" />
+    <link rel="stylesheet" href="{{ asset('css/app.css?v=1.04') }}">
+    <link rel="preload" href="{{ asset('css/app.css?v=1.04') }}" as="style" crossorigin="anonymous" />
 </head>
 
 <body class="antialiased font-jakarta">

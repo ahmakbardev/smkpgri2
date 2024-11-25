@@ -1,5 +1,12 @@
 @extends('layouts.layout')
 
+@section('meta_title', 'Beranda - SMK PGRI 2 Malang')
+@section('meta_description', 'Selamat datang di website resmi SMK PGRI 2 Malang. Temukan informasi terbaru tentang
+    sekolah kami.')
+@section('meta_keywords', 'SMK, SMK PGRI 2, Pendidikan, Beranda, Malang')
+@section('meta_author', 'SMK PGRI 2 Malang')
+
+
 @section('content')
     <div id="hero" class="relative w-full h-[60vh] mt-5 mx-auto overflow-hidden group">
         <!-- Carousel Container -->

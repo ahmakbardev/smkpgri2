@@ -1,5 +1,10 @@
 @extends('layouts.layout')
 
+@section('meta_title', $article->title . ' - SMK PGRI 2 Malang')
+@section('meta_description', $article->description)
+@section('meta_keywords', implode(', ', $article->tags->pluck('name')->toArray()))
+@section('meta_author', $article->author->name ?? 'SMK PGRI 2 Malang')
+
 @section('content')
     <div class="container mx-auto py-8 grid grid-cols-1 md:grid-cols-12 gap-8">
         <!-- Left Sidebar -->
