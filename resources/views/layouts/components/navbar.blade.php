@@ -140,14 +140,14 @@
                 <h3 class="font-semibold text-lg">Konsentrasi 1</h3>
                 <ul class="*:pt-3">
                     <li><a href="#" class="hover:text-[#11c382]">Desain Komunikasi Visual</a></li>
-                    <li><a href="#" class="hover:text-[#11c382]">Multimedia</a></li>
-                    <li><a href="#" class="hover:text-[#11c382]">Rekayasa Perangkat Lunak</a></li>
+                    <li><a href="#" class="hover:text-[#11c382]">Teknik Komputer dan Jaringan</a></li>
                 </ul>
             </div>
             <div class="space-y-4">
                 <h3 class="font-semibold text-lg">Konsentrasi 2</h3>
                 <ul class="*:pt-3">
-                    <li><a href="#" class="hover:text-[#11c382]">Teknik Jaringan</a></li>
+                    <li><a href="#" class="hover:text-[#11c382]">Akuntansi</a></li>
+                    <li><a href="#" class="hover:text-[#11c382]">Manajemen Prekantoran</a></li>
                     <li><a href="#" class="hover:text-[#11c382]">Bisnis Digital</a></li>
                 </ul>
             </div>
