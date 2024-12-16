@@ -17,7 +17,7 @@
                     <tr class="text-left text-gray-600">
                         <th class="py-3 px-6 font-semibold text-sm uppercase">Title</th>
                         <th class="py-3 px-6 font-semibold text-sm uppercase">Category</th>
-                        <th class="py-3 px-6 font-semibold text-sm uppercase">Status</th>
+                        {{-- <th class="py-3 px-6 font-semibold text-sm uppercase">Status</th> --}}
                         <th class="py-3 px-6 font-semibold text-sm uppercase">Tags</th>
                         <th class="py-3 px-6 font-semibold text-sm uppercase">Actions</th>
                     </tr>
@@ -31,7 +31,7 @@
                                 </p>
                             </td>
                             <td class="py-4 px-6">{{ $article->category->name }}</td>
-                            <td class="py-4 px-6">
+                            {{-- <td class="py-4 px-6">
                                 <select class="status-dropdown bg-white border border-gray-300 rounded"
                                     data-id="{{ $article->id }}">
                                     <option value="draft" {{ $article->status == 'draft' ? 'selected' : '' }}>Draft
@@ -41,7 +41,7 @@
                                     <option value="archived" {{ $article->status == 'archived' ? 'selected' : '' }}>Archived
                                     </option>
                                 </select>
-                            </td>
+                            </td> --}}
                             <td class="py-4 px-6">
                                 @foreach ($article->tags as $tag)
                                     <span
