@@ -62,7 +62,7 @@
         </div>
     </div>
 
-    {{-- <div id="siswaDropdown"
+    <div id="siswaDropdown"
         class="absolute top-full -mt-1 left-0 w-full bg-white text-gray-800 overflow-hidden max-h-0 z-20 shadow-lg transition-all duration-500 ease-in-out opacity-0">
         <div class="container mx-auto py-8 px-4 grid grid-cols-4 gap-8">
             <div class="space-y-4">
@@ -152,7 +152,7 @@
                 </ul>
             </div>
         </div>
-    </div> --}}
+    </div>
 
     <!-- Mobile Menu (Sidebar) -->
     <div id="mobileMenu"
