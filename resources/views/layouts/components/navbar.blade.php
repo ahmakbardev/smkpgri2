@@ -28,7 +28,7 @@
             </div>
 
             <!-- Konsentrasi Keahlian Dropdown -->
-            {{-- <button id="konsentrasiBtn" class="relative flex items-center">Konsentrasi Keahlian
+            <button id="konsentrasiBtn" class="relative flex items-center">Konsentrasi Keahlian
                 <i data-feather="chevron-down" class="ml-2 w-4 transition-transform"></i>
             </button>
 
@@ -36,7 +36,7 @@
                 <i data-feather="chevron-down" class="ml-2 w-4 transition-transform"></i>
             </button>
             <button id="fasilitasBtn" class="relative flex items-center">Fasilitas
-                <i data-feather="chevron-down" class="ml-2 w-4 transition-transform"></i> --}}
+                <i data-feather="chevron-down" class="ml-2 w-4 transition-transform"></i>
             </button>
             {{-- <a href="#" class="">Berita</a> --}}
             <a href="https://ppdb.smkpgri2malang.sch.id/" class="">PPDB</a>
