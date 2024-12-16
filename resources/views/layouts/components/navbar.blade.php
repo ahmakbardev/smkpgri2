@@ -137,14 +137,14 @@
         class="absolute top-full -mt-1 left-0 w-full bg-white text-gray-800 overflow-hidden max-h-0 z-20 shadow-lg transition-all duration-500 ease-in-out opacity-0">
         <div class="container mx-auto py-8 px-4 grid grid-cols-2 gap-8">
             <div class="space-y-4">
-                <h3 class="font-semibold text-lg">Konsentrasi 1</h3>
+                <h3 class="font-semibold text-lg">Teknik</h3>
                 <ul class="*:pt-3">
                     <li><a href="#" class="hover:text-[#11c382]">Desain Komunikasi Visual</a></li>
                     <li><a href="#" class="hover:text-[#11c382]">Teknik Komputer dan Jaringan</a></li>
                 </ul>
             </div>
             <div class="space-y-4">
-                <h3 class="font-semibold text-lg">Konsentrasi 2</h3>
+                <h3 class="font-semibold text-lg">Bisnis</h3>
                 <ul class="*:pt-3">
                     <li><a href="#" class="hover:text-[#11c382]">Akuntansi</a></li>
                     <li><a href="#" class="hover:text-[#11c382]">Manajemen Prekantoran</a></li>
