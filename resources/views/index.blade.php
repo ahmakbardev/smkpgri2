@@ -23,7 +23,7 @@
                         @if ($article->is_favorite)
                             <div
                                 class="absolute top-4 left-4 bg-yellow-500 text-white flex items-center text-lg gap-3 font-semibold py-1 px-5 rounded-full shadow-lg z-[5]">
-                                <i data-feather="star" class="inline w-5 object-contain"></i> Berita Favorit Terkini!
+                                <i data-feather="star" class="inline w-5 object-contain"></i> Berita Favorit!
                             </div>
                         @endif
 
