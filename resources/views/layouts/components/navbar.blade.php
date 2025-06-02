@@ -172,8 +172,8 @@
             <a href="#" class="">Tentang</a> --}}
             <a href="{{ route('guru.list') }}" class="">Guru</a>
             {{-- <a href="#" class="">Berita</a> --}}
-            <a href="https://ppdb.smkpgri2malang.sch.id/" class="">SPMB 2025/2026</a>
-            <a href="https://ppdb.smkpgri2malang.sch.id/"
+            <a href="https://ppdb.smkpgri2malang.sch.id/" class="">SPMB</a>
+            <a href="https://forms.gle/QhLricR6MvpC2cgx8"
                 class="bg-green-500 text-white transition-all ease-in-out px-5 py-2 rounded-md text-sm font-medium hover:bg-green-700 flex items-center space-x-2">
                 <span>Daftar Sekarang</span>
             </a>
