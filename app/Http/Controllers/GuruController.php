@@ -39,7 +39,7 @@ class GuruController extends Controller
             'nama' => $validated['nama'],
             'images' => $imagePath ? str_replace('public/', 'storage/', $imagePath) : null,
             'jabatan_id' => $validated['jabatan_id'],
-            'sub_jabatan' => $validated['sub_jabatan'], // Simpan sub-jabatan
+            'sub_jabatan' => $validated['sub_jabatan'] ?? null, // aman meskipun null atau gak ada
         ]);
 
         return redirect()->route('guru.index')->with('success', 'Guru berhasil ditambahkan.');
@@ -47,25 +47,31 @@ class GuruController extends Controller
 
     public function edit(Guru $guru)
     {
-        $jabatan = Jabatan::select('nama_jabatan', DB::raw("GROUP_CONCAT(IFNULL(sub_jabatan, '') SEPARATOR ',') as sub_jabatan"))
+        $jabatan = Jabatan::select(
+            DB::raw('MIN(id) as id'),
+            'nama_jabatan',
+            DB::raw("GROUP_CONCAT(IFNULL(sub_jabatan, '') SEPARATOR ',') as sub_jabatan")
+        )
             ->groupBy('nama_jabatan')
             ->get();
+
 
         return view('admins.guru.edit', compact('guru', 'jabatan'));
     }
 
     public function update(Request $request, Guru $guru)
     {
-        dd($request->all());
-        // Validasi input
+        // dd($request->all());
+        // logger($request->all());
+
         $validated = $request->validate([
             'nama' => 'required|string|max:255',
             'images' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'jabatan_id' => 'required|exists:jabatan,id',
-            'sub_jabatan' => 'nullable|string|max:255', // Validasi sub-jabatan
+            'sub_jabatan' => 'nullable|string|max:255',
         ]);
 
-        dd($validated); // Debug data setelah validasi
+        // dd($validated); // Debug data setelah validasi
 
         // Handle upload gambar baru atau gunakan gambar lama
         $imagePath = $request->hasFile('images')
@@ -84,7 +90,7 @@ class GuruController extends Controller
             'nama' => $validated['nama'],
             'images' => $imagePath,
             'jabatan_id' => $validated['jabatan_id'],
-            'sub_jabatan' => $validated['sub_jabatan'], // Update sub_jabatan
+            'sub_jabatan' => $validated['sub_jabatan'] ?? null,
         ]);
 
         return redirect()->route('guru.index')->with('success', 'Data guru berhasil diperbarui.');

@@ -26,8 +26,8 @@
                             required>
                             <option value="" disabled>Pilih Jabatan</option>
                             @foreach ($jabatan as $j)
-                                <option value="{{ $j->id }}" data-sub-jabatan="{{ $j->sub_jabatan ?? '' }}"
-                                    {{ $guru->jabatan_id == $j->id ? 'selected' : '' }}>
+                                <option value="{{ $j->id ?? '' }}" data-sub-jabatan="{{ $j->sub_jabatan ?? '' }}"
+                                    {{ old('jabatan_id', $guru->jabatan_id) == $j->id ? 'selected' : '' }}>
                                     {{ $j->nama_jabatan }}
                                 </option>
                             @endforeach
