@@ -39,7 +39,7 @@
                 <i data-feather="chevron-down" class="ml-2 w-4 transition-transform"></i>
             </button>
             {{-- <a href="#" class="">Berita</a> --}}
-            <a href="https://ppdb.smkpgri2malang.sch.id/" class="">PPDB</a>
+            <a href="https://ppdb.smkpgri2malang.sch.id/" class="">SPMB</a>
         </div>
 
         <!-- Desktop Authentication Links -->
@@ -172,7 +172,7 @@
             <a href="#" class="">Tentang</a> --}}
             <a href="{{ route('guru.list') }}" class="">Guru</a>
             {{-- <a href="#" class="">Berita</a> --}}
-            <a href="https://ppdb.smkpgri2malang.sch.id/" class="">PPDB</a>
+            <a href="https://ppdb.smkpgri2malang.sch.id/" class="">SPMB 2025/2026</a>
             <a href="https://ppdb.smkpgri2malang.sch.id/"
                 class="bg-green-500 text-white transition-all ease-in-out px-5 py-2 rounded-md text-sm font-medium hover:bg-green-700 flex items-center space-x-2">
                 <span>Daftar Sekarang</span>
