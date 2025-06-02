@@ -19,8 +19,8 @@
     <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
 
     <!-- Append version number to CSS file name -->
-    <link rel="stylesheet" href="{{ asset('css/app.css?v=1.04') }}">
-    <link rel="preload" href="{{ asset('css/app.css?v=1.04') }}" as="style" crossorigin="anonymous" />
+    <link rel="stylesheet" href="{{ asset('css/app.css?v=1.05') }}">
+    <link rel="preload" href="{{ asset('css/app.css?v=1.05') }}" as="style" crossorigin="anonymous" />
 </head>
 
 <body class="antialiased font-jakarta">
