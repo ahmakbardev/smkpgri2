@@ -75,8 +75,8 @@
         <!-- Left Side: Image -->
         <div class="lg:w-1/3 w-full flex justify-center lg:justify-start mb-8 lg:mb-0 relative" id="missionArea">
             <div class="flex flex-col">
-                <img src="{{ asset('assets/images/person/buros_2.png') }}" alt="School Mission"
-                    class="max-w-full h-auto rounded-lg">
+                <img src="{{ asset('assets/images/person/bu_titik.png') }}" alt="School Mission"
+                    class="max-w-md h-auto rounded-lg relative -bottom-5">
                 <!-- Switch Buttons -->
                 <div class="flex justify-center mt-6">
                     <button id="switchToVisi"
